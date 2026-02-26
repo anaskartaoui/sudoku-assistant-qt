@@ -3,15 +3,12 @@
 
 bool SudokuSolver::isValidPlacement(const int grid[9][9], int row, int col, int value)
 {
-    // Check row
     for (int c = 0; c < 9; ++c)
         if (grid[row][c] == value) return false;
 
-    // Check column
     for (int r = 0; r < 9; ++r)
         if (grid[r][col] == value) return false;
 
-    // Check 3x3 block
     int blockRow = (row / 3) * 3;
     int blockCol = (col / 3) * 3;
     for (int r = blockRow; r < blockRow + 3; ++r)

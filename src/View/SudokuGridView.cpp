@@ -40,6 +40,7 @@ void SudokuGridView::setupGrid()
     layout->setRowMinimumHeight(7, 8);
 
     setLayout(layout);
+    setFixedSize(sizeHint());
 }
 
 void SudokuGridView::applyValue(int value)

@@ -15,7 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setWindowTitle(tr("Sudoku Assistant"));
-    resize(550, 750);
+    resize(700, 950);
+    setMinimumSize(700, 950);
+
 
     // Fond teal
     setStyleSheet("QMainWindow { background-color: #2D7D7D; }");
@@ -44,7 +46,7 @@ void MainWindow::setupCentralWidget()
     central->setStyleSheet("background-color: #2D7D7D;");
 
     QVBoxLayout *layout = new QVBoxLayout(central);
-    layout->setContentsMargins(30, 30, 30, 30);
+    layout->setContentsMargins(80, 30, 30, 30);
     layout->setSpacing(20);
     layout->setAlignment(Qt::AlignCenter);
 
@@ -71,6 +73,7 @@ void MainWindow::setupCentralWidget()
 
     boardLayout->addWidget(m_gridView);
     board->setLayout(boardLayout);
+    board->setFixedSize(581, 581);
 
     m_numPad = new NumPad(this);
 

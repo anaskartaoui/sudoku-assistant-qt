@@ -7,10 +7,6 @@ CONFIG += c++17
 TARGET   = sudoku-assistant
 TEMPLATE = app
 
-# ------------------------------------------------------------------------------
-# Sources
-# ------------------------------------------------------------------------------
-
 SOURCES += \
     src/main.cpp \
     src/Model/SudokuModel.cpp \
@@ -18,11 +14,8 @@ SOURCES += \
     src/View/MainWindow.cpp \
     src/View/SudokuGridView.cpp \
     src/View/CellWidget.cpp \
+    src/View/NumPad.cpp \
     src/Controller/SudokuController.cpp
-
-# ------------------------------------------------------------------------------
-# Headers
-# ------------------------------------------------------------------------------
 
 HEADERS += \
     src/Model/SudokuModel.h \
@@ -30,36 +23,18 @@ HEADERS += \
     src/View/MainWindow.h \
     src/View/SudokuGridView.h \
     src/View/CellWidget.h \
+    src/View/NumPad.h \
     src/Controller/SudokuController.h
-
-# ------------------------------------------------------------------------------
-# Internationalisation
-# ------------------------------------------------------------------------------
 
 TRANSLATIONS += \
     resources/i18n/sudoku_fr.ts \
     resources/i18n/sudoku_en.ts
 
-# ------------------------------------------------------------------------------
-# Resources
-# ------------------------------------------------------------------------------
-
 RESOURCES += \
     resources/resources.qrc
-
-# ------------------------------------------------------------------------------
-# Output directories
-# ------------------------------------------------------------------------------
 
 DESTDIR     = build/
 OBJECTS_DIR = build/obj
 MOC_DIR     = build/moc
 RCC_DIR     = build/rcc
 UI_DIR      = build/ui
-
-# ------------------------------------------------------------------------------
-# Warnings
-# ------------------------------------------------------------------------------
-
-# Disable "unused parameter" warnings during early development
-QMAKE_CXXFLAGS += -Wno-unused-parameter

@@ -1,76 +1,42 @@
 #include "CellWidget.h"
-#include <QComboBox>
+#include <QMouseEvent>
 #include <QVBoxLayout>
-#include <QList>
-#include <algorithm>
 
 CellWidget::CellWidget(int row, int col, QWidget *parent)
     : QWidget(parent), m_row(row), m_col(col),
-      m_fixed(false), m_contradiction(false),
-      m_nakedSingle(false), m_selected(false)
+    m_value(0), m_fixed(false), m_selected(false),
+    m_contradiction(false), m_nakedSingle(false)
 {
-    m_combo = new QComboBox(this);
-    m_combo->setMinimumSize(50, 50);
-    m_combo->setMaximumSize(60, 60);
+    setFixedSize(55, 55);
+
+    m_label = new QLabel(this);
+    m_label->setAlignment(Qt::AlignCenter);
+    m_label->setFixedSize(55, 55);
 
     QVBoxLayout *layout = new QVBoxLayout(this);
-    layout->setContentsMargins(1, 1, 1, 1);
-    layout->addWidget(m_combo);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->addWidget(m_label);
     setLayout(layout);
-
-    connect(m_combo, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &CellWidget::onComboChanged);
 
     updateStyle();
 }
 
 void CellWidget::setValue(int value)
 {
-    m_combo->blockSignals(true);
-    m_combo->clear();
-    if (value != 0)
-        m_combo->addItem(QString::number(value));
-    m_combo->blockSignals(false);
+    m_value = value;
+    m_label->setText(value != 0 ? QString::number(value) : "");
     updateStyle();
 }
 
 void CellWidget::setCandidates(const QSet<int> &candidates)
 {
-    if (m_fixed) return;
-
-    m_combo->blockSignals(true);
-    m_combo->clear();
-
-    // Empty option first
-    m_combo->addItem("", 0);
-
-    // Sort candidates
-    QList<int> sorted = candidates.values();
-    std::sort(sorted.begin(), sorted.end());
-    for (int v : sorted)
-        m_combo->addItem(QString::number(v), v);
-
     m_nakedSingle = (candidates.size() == 1);
-    m_combo->blockSignals(false);
     updateStyle();
 }
 
 void CellWidget::setFixed(bool fixed)
 {
     m_fixed = fixed;
-    m_combo->setEnabled(!fixed);
-    updateStyle();
-}
-
-void CellWidget::setContradiction(bool contradiction)
-{
-    m_contradiction = contradiction;
-    updateStyle();
-}
-
-void CellWidget::setNakedSingle(bool single)
-{
-    m_nakedSingle = single;
     updateStyle();
 }
 
@@ -80,28 +46,57 @@ void CellWidget::setSelected(bool selected)
     updateStyle();
 }
 
-void CellWidget::onComboChanged(int index)
+void CellWidget::setContradiction(bool contradiction)
 {
-    if (index < 0) return;
-    int value = m_combo->itemData(index).toInt();
-    emit valueSelected(m_row, m_col, value);
+    m_contradiction = contradiction;
+    updateStyle();
+}
+
+void CellWidget::setNakedSingle(bool nakedSingle)
+{
+    m_nakedSingle = nakedSingle;
+    updateStyle();
+}
+
+void CellWidget::mousePressEvent(QMouseEvent *event)
+{
+    Q_UNUSED(event);
+    if (!m_fixed)
+        emit cellClicked(m_row, m_col);
 }
 
 void CellWidget::updateStyle()
 {
-    QString style;
+    QString bgColor, textColor, fontWeight;
+    fontWeight = "bold";
 
     if (m_fixed) {
-        style = "background-color: #d0d0d0; font-weight: bold; font-size: 16px;";
-    } else if (m_contradiction) {
-        style = "background-color: #ff6b6b;";
-    } else if (m_nakedSingle) {
-        style = "background-color: #fff176;";
+        bgColor   = "#D4C4A8";  // plus foncé
+        textColor = "#2C2C2C";  // presque noir
     } else if (m_selected) {
-        style = "background-color: #bbdefb;";
+        bgColor   = "#DD7D59";
+        textColor = "#FFFFFF";
+    } else if (m_contradiction) {
+        bgColor   = "#E74C3C";
+        textColor = "#FFFFFF";
+    } else if (m_nakedSingle) {
+        bgColor   = "#F39C12";
+        textColor = "#FFFFFF";
     } else {
-        style = "background-color: white;";
+        bgColor   = "#FDF8E2";  // crème clair
+        textColor = "#DD7D59";
     }
 
-    m_combo->setStyleSheet(style);
+    QString fontSize = m_fixed ? "22px" : "18px";
+
+    m_label->setStyleSheet(QString(
+                               "QLabel {"
+                               "  background-color: %1;"
+                               "  color: %2;"
+                               "  font-size: %3;"
+                               "  font-weight: %4;"
+                               "  border-radius: 4px;"
+                               "  border: 2px;"
+                               "}"
+                               ).arg(bgColor, textColor, fontSize, fontWeight));
 }

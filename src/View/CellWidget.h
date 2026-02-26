@@ -2,15 +2,13 @@
 #define CELLWIDGET_H
 
 #include <QWidget>
+#include <QLabel>
 #include <QSet>
-
-class QComboBox;
 
 /**
  * @brief The CellWidget class
  * Represents a single cell in the Sudoku grid.
- * Shows a QComboBox with only valid candidate values.
- * Fixed cells display their value as a label (not editable).
+ * Displays a number as a QLabel. Clickable to select.
  */
 class CellWidget : public QWidget
 {
@@ -20,26 +18,28 @@ public:
     explicit CellWidget(int row, int col, QWidget *parent = nullptr);
 
     void setValue(int value);
+    int  getValue() const { return m_value; }
     void setCandidates(const QSet<int> &candidates);
     void setFixed(bool fixed);
-    void setContradiction(bool contradiction);
-    void setNakedSingle(bool single);
     void setSelected(bool selected);
+    void setContradiction(bool contradiction);
+    void setNakedSingle(bool nakedSingle);
 
 signals:
-    void valueSelected(int row, int col, int value);
+    void cellClicked(int row, int col);
 
-private slots:
-    void onComboChanged(int index);
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 
 private:
-    int        m_row;
-    int        m_col;
-    bool       m_fixed;
-    bool       m_contradiction;
-    bool       m_nakedSingle;
-    bool       m_selected;
-    QComboBox *m_combo;
+    int     m_row;
+    int     m_col;
+    int     m_value;
+    bool    m_fixed;
+    bool    m_selected;
+    bool    m_contradiction;
+    bool    m_nakedSingle;
+    QLabel *m_label;
 
     void updateStyle();
 };

@@ -8,16 +8,13 @@ CellWidget::CellWidget(int row, int col, QWidget *parent)
     m_contradiction(false), m_nakedSingle(false)
 {
     setFixedSize(55, 55);
-
     m_label = new QLabel(this);
     m_label->setAlignment(Qt::AlignCenter);
     m_label->setFixedSize(55, 55);
-
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_label);
     setLayout(layout);
-
     updateStyle();
 }
 
@@ -58,6 +55,13 @@ void CellWidget::setNakedSingle(bool nakedSingle)
     updateStyle();
 }
 
+void CellWidget::setBlockBorders(int row, int col)
+{
+    m_row = row;
+    m_col = col;
+    updateStyle();
+}
+
 void CellWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
@@ -67,27 +71,32 @@ void CellWidget::mousePressEvent(QMouseEvent *event)
 
 void CellWidget::updateStyle()
 {
-    QString bgColor, textColor, fontWeight;
-    fontWeight = "bold";
+    QString bgColor, textColor;
 
     if (m_fixed) {
-        bgColor   = "#D4C4A8";  // plus foncé
-        textColor = "#2C2C2C";  // presque noir
+        bgColor   = "#EAF0F6";
+        textColor = "#2C3E50";
     } else if (m_selected) {
-        bgColor   = "#DD7D59";
-        textColor = "#FFFFFF";
+        bgColor   = "#C8D8F0";
+        textColor = "#1A2A3A";
     } else if (m_contradiction) {
-        bgColor   = "#E74C3C";
-        textColor = "#FFFFFF";
+        bgColor   = "#FADBD8";
+        textColor = "#C0392B";
     } else if (m_nakedSingle) {
-        bgColor   = "#F39C12";
-        textColor = "#FFFFFF";
+        bgColor   = "#D6EAF8";
+        textColor = "#1F618D";
     } else {
-        bgColor   = "#FDF8E2";  // crème clair
-        textColor = "#DD7D59";
+        bgColor   = "#FFFFFF";
+        textColor = "#5B8CCC";
     }
 
-    QString fontSize = m_fixed ? "22px" : "18px";
+    int top    = (m_row % 3 == 0) ? 3 : 1;
+    int left   = (m_col % 3 == 0) ? 3 : 1;
+    int bottom = (m_row == 8)     ? 3 : 0;
+    int right  = (m_col == 8)     ? 3 : 0;
+
+    QString fontSize   = m_fixed ? "22px" : "18px";
+    QString fontWeight = "bold";
 
     m_label->setStyleSheet(QString(
                                "QLabel {"
@@ -95,8 +104,11 @@ void CellWidget::updateStyle()
                                "  color: %2;"
                                "  font-size: %3;"
                                "  font-weight: %4;"
-                               "  border-radius: 4px;"
-                               "  border: 2px;"
+                               "  border-top:    %5px solid #7A9AB5;"
+                               "  border-left:   %6px solid #7A9AB5;"
+                               "  border-bottom: %7px solid #7A9AB5;"
+                               "  border-right:  %8px solid #7A9AB5;"
                                "}"
-                               ).arg(bgColor, textColor, fontSize, fontWeight));
+                               ).arg(bgColor, textColor, fontSize, fontWeight)
+                               .arg(top).arg(left).arg(bottom).arg(right));
 }

@@ -9,18 +9,16 @@
 #include <QAction>
 #include <QFileDialog>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QWidget>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setWindowTitle(tr("Sudoku Assistant"));
-    resize(700, 950);
-    setMinimumSize(700, 950);
+    resize(1280, 800);
 
-
-    // Fond teal
-    setStyleSheet("QMainWindow { background-color: #2D7D7D; }");
+    setStyleSheet("QMainWindow { background-color: #DDE6F0; }");
 
     m_controller = new SudokuController(this);
 
@@ -29,7 +27,6 @@ MainWindow::MainWindow(QWidget *parent)
     setupToolbar();
     setupStatusBar();
 
-    // Connexions
     connect(m_gridView, &SudokuGridView::valueChanged,
             m_controller, &SudokuController::setCellValue);
     connect(m_numPad, &NumPad::numberClicked,
@@ -43,49 +40,32 @@ MainWindow::~MainWindow() {}
 void MainWindow::setupCentralWidget()
 {
     QWidget *central = new QWidget(this);
-    central->setStyleSheet("background-color: #2D7D7D;");
+    central->setStyleSheet("background-color: #DDE6F0;");
 
-    QVBoxLayout *layout = new QVBoxLayout(central);
-    layout->setContentsMargins(80, 30, 30, 30);
-    layout->setSpacing(20);
-    layout->setAlignment(Qt::AlignCenter);
-
-    // Plateau bois vintage autour de la grille
-    QWidget *board = new QWidget(this);
-    board->setStyleSheet(
-        "QWidget {"
-        "  background-color: #B08A5A;"
-        "  border-radius: 18px;"
-        "  border: None;"
-        "}"
-        );
-
-    QVBoxLayout *boardLayout = new QVBoxLayout(board);
-    boardLayout->setContentsMargins(12, 12, 12, 12);
+    QVBoxLayout *vLayout = new QVBoxLayout(central);
+    vLayout->setContentsMargins(0, 30, 0, 30);
+    vLayout->setSpacing(20);
+    vLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
     m_gridView = new SudokuGridView(m_controller->model(), this);
-    m_gridView->setStyleSheet(
-        "SudokuGridView {"
-        "  background-color: #FDF8E2;"
-        "  border-radius: 8px;"
-        "}"
-        );
+    m_numPad   = new NumPad(this);
 
-    boardLayout->addWidget(m_gridView);
-    board->setLayout(boardLayout);
-    board->setFixedSize(581, 581);
+    vLayout->addWidget(m_gridView, 0, Qt::AlignHCenter);
+    vLayout->addWidget(m_numPad,   0, Qt::AlignHCenter);
 
-    m_numPad = new NumPad(this);
-
-    layout->addWidget(board, 0, Qt::AlignCenter);
-    layout->addWidget(m_numPad, 0, Qt::AlignCenter);
-
-    central->setLayout(layout);
+    central->setLayout(vLayout);
     setCentralWidget(central);
 }
 
 void MainWindow::setupMenus()
 {
+    menuBar()->setStyleSheet(
+        "QMenuBar { background-color: #DDE6F0; color: #2C3E50; }"
+        "QMenuBar::item:selected { background-color: #B0C4D8; }"
+        "QMenu { background-color: #FFFFFF; color: #2C3E50; border: 1px solid #B0BEC5; }"
+        "QMenu::item:selected { background-color: #DDE6F0; }"
+        );
+
     QMenu *fileMenu = menuBar()->addMenu(tr("&Fichier"));
 
     QAction *newAction = fileMenu->addAction(tr("&Nouvelle grille"));
@@ -127,12 +107,15 @@ void MainWindow::setupToolbar()
 {
     QToolBar *toolbar = addToolBar(tr("Barre d'outils"));
     toolbar->setMovable(false);
+    toolbar->setStyleSheet("QToolBar { background-color: #DDE6F0; border: none; }");
 }
 
 void MainWindow::setupStatusBar()
 {
     statusBar()->showMessage(tr("Prêt — Sélectionnez une case puis un chiffre."));
-    statusBar()->setStyleSheet("background-color: #1f5f5f; color: white;");
+    statusBar()->setStyleSheet(
+        "QStatusBar { background-color: #DDE6F0; color: #2C3E50; font-size: 13px; padding: 4px; }"
+        );
 }
 
 void MainWindow::onNewGrid()

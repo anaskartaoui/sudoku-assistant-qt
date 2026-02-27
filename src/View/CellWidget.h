@@ -24,6 +24,7 @@ public:
     void setSelected(bool selected);
     void setContradiction(bool contradiction);
     void setNakedSingle(bool nakedSingle);
+    void setBlockBorders(int row, int col);
 
 signals:
     void cellClicked(int row, int col);

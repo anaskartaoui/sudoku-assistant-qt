@@ -1,4 +1,8 @@
 <RCC>
     <qresource prefix="/">
+        <file>grilles/Easy.txt</file>
+        <file>grilles/Hard.txt</file>
+        <file>grilles/Insane.txt</file>
+        <file>grilles/Medium.txt</file>
     </qresource>
 </RCC>

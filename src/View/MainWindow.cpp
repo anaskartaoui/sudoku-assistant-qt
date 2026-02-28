@@ -11,6 +11,8 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QWidget>
+#include <QPushButton>
+#include <QButtonGroup>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -43,18 +45,71 @@ void MainWindow::setupCentralWidget()
     central->setStyleSheet("background-color: #DDE6F0;");
 
     QVBoxLayout *vLayout = new QVBoxLayout(central);
-    vLayout->setContentsMargins(0, 30, 0, 30);
-    vLayout->setSpacing(20);
+    vLayout->setContentsMargins(0, 20, 0, 20);
+    vLayout->setSpacing(16);
     vLayout->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
+    setupDifficultyBar();
     m_gridView = new SudokuGridView(m_controller->model(), this);
     m_numPad   = new NumPad(this);
 
-    vLayout->addWidget(m_gridView, 0, Qt::AlignHCenter);
-    vLayout->addWidget(m_numPad,   0, Qt::AlignHCenter);
+    vLayout->addWidget(m_difficultyBar, 0, Qt::AlignHCenter);
+    vLayout->addWidget(m_gridView,      0, Qt::AlignHCenter);
+    vLayout->addWidget(m_numPad,        0, Qt::AlignHCenter);
 
     central->setLayout(vLayout);
     setCentralWidget(central);
+}
+
+void MainWindow::setupDifficultyBar()
+{
+    m_difficultyBar = new QWidget(this);
+    QHBoxLayout *layout = new QHBoxLayout(m_difficultyBar);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(10);
+
+    QButtonGroup *group = new QButtonGroup(this);
+
+    QString btnStyle =
+        "QPushButton {"
+        "  background-color: #FFFFFF;"
+        "  color: #2C3E50;"
+        "  border: 1px solid #B0BEC5;"
+        "  border-radius: 14px;"
+        "  padding: 6px 20px;"
+        "  font-size: 13px;"
+        "  font-weight: bold;"
+        "}"
+        "QPushButton:hover { background-color: #C8D8F0; }"
+        "QPushButton:checked {"
+        "  background-color: #7A9AB5;"
+        "  color: #FFFFFF;"
+        "  border: 1px solid #7A9AB5;"
+        "}";
+
+    QStringList levels = { tr("Facile"), tr("Moyen"), tr("Difficile"), tr("Insane") };
+    QStringList keys   = { "Easy",       "Medium",    "Hard",          "Insane"     };
+
+    for (int i = 0; i < levels.size(); ++i) {
+        QPushButton *btn = new QPushButton(levels[i], m_difficultyBar);
+        btn->setStyleSheet(btnStyle);
+        btn->setCheckable(true);
+        btn->setProperty("difficulty", keys[i]);
+        if (i == 0) btn->setChecked(true);
+        group->addButton(btn);
+        layout->addWidget(btn);
+        connect(btn, &QPushButton::clicked, this, [this, keys, i]() {
+            onDifficultySelected(keys[i]);
+        });
+    }
+
+    m_difficultyBar->setLayout(layout);
+}
+
+void MainWindow::onDifficultySelected(const QString &difficulty)
+{
+    m_controller->loadRandomGrid(difficulty);
+    statusBar()->showMessage(tr("Nouvelle grille chargée : %1").arg(difficulty));
 }
 
 void MainWindow::setupMenus()

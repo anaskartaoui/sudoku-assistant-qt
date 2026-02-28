@@ -1,8 +1,8 @@
 #include "SudokuController.h"
 #include "../Model/SudokuModel.h"
-
 #include <QFile>
 #include <QTextStream>
+#include <QRandomGenerator>
 
 SudokuController::SudokuController(QObject *parent)
     : QObject(parent), m_hintsEnabled(true)
@@ -12,18 +12,36 @@ SudokuController::SudokuController(QObject *parent)
 
 void SudokuController::loadDefaultGrid()
 {
-    static const int defaultGrid[9][9] = {
-        {5, 3, 0, 0, 7, 0, 0, 0, 0},
-        {6, 0, 0, 1, 9, 5, 0, 0, 0},
-        {0, 9, 8, 0, 0, 0, 0, 6, 0},
-        {8, 0, 0, 0, 6, 0, 0, 0, 3},
-        {4, 0, 0, 8, 0, 3, 0, 0, 1},
-        {7, 0, 0, 0, 2, 0, 0, 0, 6},
-        {0, 6, 0, 0, 0, 0, 2, 8, 0},
-        {0, 0, 0, 4, 1, 9, 0, 0, 5},
-        {0, 0, 0, 0, 8, 0, 0, 7, 9}
-    };
-    m_model->loadGrid(defaultGrid);
+    loadRandomGrid("Easy");
+}
+
+void SudokuController::loadRandomGrid(const QString &difficulty)
+{
+    QString path = QString(":/grilles/%1.txt").arg(difficulty);
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QTextStream in(&file);
+
+    int count = 0;
+    in >> count;
+    if (count <= 0) return;
+
+    int index = QRandomGenerator::global()->bounded(count);
+
+    for (int i = 0; i <= index; ++i) {
+        QString line;
+        do { line = in.readLine(); } while (line.trimmed().isEmpty());
+        if (i == index) {
+            int grid[9][9] = {};
+            for (int r = 0; r < 9; ++r)
+                for (int c = 0; c < 9; ++c)
+                    grid[r][c] = line[r * 9 + c].digitValue();
+            m_model->loadGrid(grid);
+        }
+    }
+
     m_undoStack.clear();
     m_redoStack.clear();
 }
@@ -33,13 +51,11 @@ void SudokuController::loadGridFromFile(const QString &path)
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
-
     int grid[9][9] = {};
     QTextStream in(&file);
     for (int r = 0; r < 9; ++r)
         for (int c = 0; c < 9; ++c)
             in >> grid[r][c];
-
     m_model->loadGrid(grid);
     m_undoStack.clear();
     m_redoStack.clear();

@@ -42,10 +42,12 @@ void SudokuGridView::applyValue(int value)
 
 void SudokuGridView::onCellClicked(int row, int col)
 {
+    clearHighlight();
     clearSelection();
     m_selectedRow = row;
     m_selectedCol = col;
     m_cells[row][col]->setSelected(true);
+    applyHighlight(row, col);
     emit cellSelected(row, col);
 }
 
@@ -57,6 +59,30 @@ void SudokuGridView::clearSelection()
     m_selectedCol = -1;
 }
 
+void SudokuGridView::clearHighlight()
+{
+    for (int r = 0; r < 9; ++r)
+        for (int c = 0; c < 9; ++c)
+            m_cells[r][c]->setHighlighted(false);
+}
+
+void SudokuGridView::applyHighlight(int row, int col)
+{
+    // Ligne et colonne
+    for (int i = 0; i < 9; ++i) {
+        if (i != col) m_cells[row][i]->setHighlighted(true);
+        if (i != row) m_cells[i][col]->setHighlighted(true);
+    }
+
+    // Bloc 3x3
+    int blockRow = (row / 3) * 3;
+    int blockCol = (col / 3) * 3;
+    for (int r = blockRow; r < blockRow + 3; ++r)
+        for (int c = blockCol; c < blockCol + 3; ++c)
+            if (r != row || c != col)
+                m_cells[r][c]->setHighlighted(true);
+}
+
 void SudokuGridView::refreshCell(int row, int col)
 {
     CellWidget *cell     = m_cells[row][col];
@@ -66,6 +92,12 @@ void SudokuGridView::refreshCell(int row, int col)
     cell->setFixed(fixed);
     cell->setValue(value);
     cell->setCandidates(candidates);
+}
+
+void SudokuGridView::resetView()
+{
+    clearHighlight();
+    clearSelection();
 }
 
 void SudokuGridView::onCandidatesUpdated()

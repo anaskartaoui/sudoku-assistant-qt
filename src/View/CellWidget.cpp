@@ -5,7 +5,7 @@
 CellWidget::CellWidget(int row, int col, QWidget *parent)
     : QWidget(parent), m_row(row), m_col(col),
     m_value(0), m_fixed(false), m_selected(false),
-    m_contradiction(false), m_nakedSingle(false)
+    m_contradiction(false), m_nakedSingle(false), m_highlighted(false)
 {
     setFixedSize(55, 55);
     m_label = new QLabel(this);
@@ -62,6 +62,12 @@ void CellWidget::setBlockBorders(int row, int col)
     updateStyle();
 }
 
+void CellWidget::setHighlighted(bool highlighted)
+{
+    m_highlighted = highlighted;
+    updateStyle();
+}
+
 void CellWidget::mousePressEvent(QMouseEvent *event)
 {
     Q_UNUSED(event);
@@ -73,10 +79,7 @@ void CellWidget::updateStyle()
 {
     QString bgColor, textColor;
 
-    if (m_fixed) {
-        bgColor   = "#EAF0F6";
-        textColor = "#2C3E50";
-    } else if (m_selected) {
+    if (m_selected) {
         bgColor   = "#C8D8F0";
         textColor = "#1A2A3A";
     } else if (m_contradiction) {
@@ -85,6 +88,12 @@ void CellWidget::updateStyle()
     } else if (m_nakedSingle) {
         bgColor   = "#D6EAF8";
         textColor = "#1F618D";
+    } else if (m_highlighted) {
+        bgColor   = "#D4E6F1";  // bleu très doux pour ligne/col/bloc
+        textColor = m_fixed ? "#2C3E50" : "#5B8CCC";
+    } else if (m_fixed) {
+        bgColor   = "#EAF0F6";
+        textColor = "#2C3E50";
     } else {
         bgColor   = "#FFFFFF";
         textColor = "#5B8CCC";

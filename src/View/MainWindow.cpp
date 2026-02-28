@@ -109,6 +109,7 @@ void MainWindow::setupDifficultyBar()
 void MainWindow::onDifficultySelected(const QString &difficulty)
 {
     m_controller->loadRandomGrid(difficulty);
+    m_gridView->resetView();
     statusBar()->showMessage(tr("Nouvelle grille chargée : %1").arg(difficulty));
 }
 
@@ -176,6 +177,7 @@ void MainWindow::setupStatusBar()
 void MainWindow::onNewGrid()
 {
     m_controller->loadDefaultGrid();
+    m_gridView->resetView();
     statusBar()->showMessage(tr("Nouvelle grille chargée."));
 }
 
@@ -189,6 +191,7 @@ void MainWindow::onLoadGrid()
         );
     if (!path.isEmpty()) {
         m_controller->loadGridFromFile(path);
+        m_gridView->resetView();
         statusBar()->showMessage(tr("Grille chargée depuis %1").arg(path));
     }
 }

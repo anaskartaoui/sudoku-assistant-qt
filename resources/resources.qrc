@@ -4,5 +4,7 @@
         <file>grilles/Hard.txt</file>
         <file>grilles/Insane.txt</file>
         <file>grilles/Medium.txt</file>
+        <file>fonts/Oswald-VariableFont_wght.ttf</file>
+        <file>images/pause.png</file>
     </qresource>
 </RCC>

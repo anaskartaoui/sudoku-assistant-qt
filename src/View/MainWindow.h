@@ -1,6 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 #include <QMainWindow>
+#include <QTimer>
+#include <QLabel>
+#include <QPushButton>
+
 class SudokuController;
 class SudokuGridView;
 class NumPad;
@@ -19,15 +23,26 @@ private slots:
     void onToggleHints();
     void onNumberClicked(int value);
     void onDifficultySelected(const QString &difficulty);
+    void onTimerTick();
+    void onPauseClicked();
 private:
     void setupMenus();
     void setupToolbar();
     void setupStatusBar();
     void setupCentralWidget();
     void setupDifficultyBar();
+    void setupTimerBar();
+    void resetTimer();
+
     SudokuGridView   *m_gridView;
     SudokuController *m_controller;
     NumPad           *m_numPad;
-    QWidget *m_difficultyBar;
+    QWidget          *m_difficultyBar;
+    QWidget          *m_timerBar;
+    QLabel           *m_timerLabel;
+    QPushButton      *m_pauseBtn;
+    QTimer           *m_timer;
+    int               m_seconds;
+    bool              m_paused;
 };
 #endif // MAINWINDOW_H

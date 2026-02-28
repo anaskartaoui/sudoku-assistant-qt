@@ -13,9 +13,11 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QButtonGroup>
+#include <QLabel>
+#include <QTimer>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+    : QMainWindow(parent), m_seconds(0), m_paused(false)
 {
     setWindowTitle(tr("Sudoku Assistant"));
     resize(1280, 800);
@@ -23,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent)
     setStyleSheet("QMainWindow { background-color: #DDE6F0; }");
 
     m_controller = new SudokuController(this);
+    m_timer      = new QTimer(this);
 
     setupCentralWidget();
     setupMenus();
@@ -33,8 +36,11 @@ MainWindow::MainWindow(QWidget *parent)
             m_controller, &SudokuController::setCellValue);
     connect(m_numPad, &NumPad::numberClicked,
             this, &MainWindow::onNumberClicked);
+    connect(m_timer, &QTimer::timeout,
+            this, &MainWindow::onTimerTick);
 
     m_controller->loadDefaultGrid();
+    resetTimer();
 }
 
 MainWindow::~MainWindow() {}
@@ -51,10 +57,12 @@ void MainWindow::setupCentralWidget()
 
     setupDifficultyBar();
     m_gridView = new SudokuGridView(m_controller->model(), this);
-    m_numPad   = new NumPad(this);
+    setupTimerBar();
+    m_numPad = new NumPad(this);
 
     vLayout->addWidget(m_difficultyBar, 0, Qt::AlignHCenter);
     vLayout->addWidget(m_gridView,      0, Qt::AlignHCenter);
+    vLayout->addWidget(m_timerBar,      0, Qt::AlignHCenter);
     vLayout->addWidget(m_numPad,        0, Qt::AlignHCenter);
 
     central->setLayout(vLayout);
@@ -106,11 +114,94 @@ void MainWindow::setupDifficultyBar()
     m_difficultyBar->setLayout(layout);
 }
 
-void MainWindow::onDifficultySelected(const QString &difficulty)
+void MainWindow::setupTimerBar()
 {
-    m_controller->loadRandomGrid(difficulty);
-    m_gridView->resetView();
-    statusBar()->showMessage(tr("Nouvelle grille chargée : %1").arg(difficulty));
+    m_timerBar = new QWidget(this);
+    QHBoxLayout *layout = new QHBoxLayout(m_timerBar);
+    layout->setContentsMargins(0, 0, 0, 0);
+    layout->setSpacing(12);
+
+    m_timerLabel = new QLabel("00:00", m_timerBar);
+    m_timerLabel->setStyleSheet(
+        "QLabel {"
+        "  color: #2C3E50;"
+        "  font-size: 18px;"
+        "  font-weight: bold;"
+        "}"
+        );
+
+    m_pauseBtn = new QPushButton("⏸", m_timerBar);
+    m_pauseBtn->setFixedSize(32, 32);
+    m_pauseBtn->setStyleSheet(
+        "QPushButton {"
+        "  background-color: #FFFFFF;"
+        "  color: #2C3E50;"
+        "  border: 1px solid #B0BEC5;"
+        "  border-radius: 16px;"
+        "  font-size: 14px;"
+        "}"
+        "QPushButton:hover { background-color: #C8D8F0; }"
+        );
+    m_pauseBtn->setToolTip(tr("Pause / Reprendre"));
+
+    connect(m_pauseBtn, &QPushButton::clicked, this, &MainWindow::onPauseClicked);
+
+    layout->addWidget(m_timerLabel);
+    layout->addWidget(m_pauseBtn);
+    m_timerBar->setLayout(layout);
+
+    QPushButton *restartBtn = new QPushButton("↺", m_timerBar);
+    restartBtn->setFixedSize(32, 32);
+    restartBtn->setStyleSheet(
+        "QPushButton {"
+        "  background-color: #FFFFFF;"
+        "  color: #2C3E50;"
+        "  border: 1px solid #B0BEC5;"
+        "  border-radius: 16px;"
+        "  font-size: 16px;"
+        "}"
+        "QPushButton:hover { background-color: #C8D8F0; }"
+        );
+    restartBtn->setToolTip(tr("Recommencer la partie"));
+    connect(restartBtn, &QPushButton::clicked, this, &MainWindow::onNewGrid);
+
+    layout->addWidget(m_timerLabel);
+    layout->addWidget(m_pauseBtn);
+    layout->addWidget(restartBtn);
+}
+
+void MainWindow::resetTimer()
+{
+    m_timer->stop();
+    m_seconds = 0;
+    m_paused  = false;
+    m_timerLabel->setText("00:00");
+    m_pauseBtn->setText("⏸");
+    m_timer->start(1000);
+}
+
+void MainWindow::onTimerTick()
+{
+    ++m_seconds;
+    int m = m_seconds / 60;
+    int s = m_seconds % 60;
+    m_timerLabel->setText(QString("%1:%2")
+                              .arg(m, 2, 10, QChar('0'))
+                              .arg(s, 2, 10, QChar('0')));
+}
+
+void MainWindow::onPauseClicked()
+{
+    m_paused = !m_paused;
+    if (m_paused) {
+        m_timer->stop();
+        m_pauseBtn->setText("▶");
+        m_gridView->setPaused(true);
+    } else {
+        m_timer->start(1000);
+        m_pauseBtn->setText("⏸");
+        m_gridView->setPaused(false);
+    }
 }
 
 void MainWindow::setupMenus()
@@ -178,6 +269,7 @@ void MainWindow::onNewGrid()
 {
     m_controller->loadDefaultGrid();
     m_gridView->resetView();
+    resetTimer();
     statusBar()->showMessage(tr("Nouvelle grille chargée."));
 }
 
@@ -192,8 +284,17 @@ void MainWindow::onLoadGrid()
     if (!path.isEmpty()) {
         m_controller->loadGridFromFile(path);
         m_gridView->resetView();
+        resetTimer();
         statusBar()->showMessage(tr("Grille chargée depuis %1").arg(path));
     }
+}
+
+void MainWindow::onDifficultySelected(const QString &difficulty)
+{
+    m_controller->loadRandomGrid(difficulty);
+    m_gridView->resetView();
+    resetTimer();
+    statusBar()->showMessage(tr("Nouvelle grille chargée : %1").arg(difficulty));
 }
 
 void MainWindow::onUndo()

@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QTranslator>
 #include <QLocale>
+#include <QFontDatabase>
 #include "View/MainWindow.h"
 
 int main(int argc, char *argv[])
@@ -9,6 +10,8 @@ int main(int argc, char *argv[])
     app.setApplicationName("Sudoku Assistant");
     app.setApplicationVersion("1.0");
     app.setOrganizationName("UniCaen");
+
+    QFontDatabase::addApplicationFont("://fonts/Oswald-VariableFont_wght.ttf");
 
     // Internationalisation
     QTranslator translator;

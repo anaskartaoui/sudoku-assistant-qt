@@ -1,12 +1,44 @@
 #include "SudokuGridView.h"
 #include "../Model/SudokuModel.h"
 #include <QGridLayout>
+#include <QPainter>
 
 SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
     : QWidget(parent), m_model(model),
     m_selectedRow(-1), m_selectedCol(-1)
 {
     setupGrid();
+
+    // Overlay pause — par dessus la grille
+    m_pauseOverlay = new QLabel(this);
+    m_pauseOverlay->setAlignment(Qt::AlignCenter);
+    QPixmap px(":/images/pause.png");
+    QPixmap colored(px.size());
+    colored.fill(Qt::transparent);
+    QPainter painter(&colored);
+    painter.setCompositionMode(QPainter::CompositionMode_Source);
+    painter.drawPixmap(0, 0, px);
+    painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+    painter.fillRect(colored.rect(), QColor("#7A9AB5")); // couleur souhaitée
+    painter.end();
+
+    m_pauseOverlay->setPixmap(
+        colored.scaled(120, 120, Qt::KeepAspectRatio, Qt::SmoothTransformation)
+        );
+    m_pauseOverlay->setStyleSheet(
+        "QLabel {"
+        "  background-color: rgba(221, 230, 240, 220);"
+        "  color: #2C3E50;"
+        "  font-family: 'Oswald';"
+        "  font-size: 44px;"
+        "  font-style: bold;"
+        "  font-weight: 400;"
+        "  letter-spacing: 1px;"
+        "}"
+        );
+    m_pauseOverlay->setGeometry(0, 0, width(), height());
+    m_pauseOverlay->hide();
+
     connect(m_model, &SudokuModel::candidatesUpdated,
             this, &SudokuGridView::onCandidatesUpdated);
     connect(m_model, &SudokuModel::contradictionDetected,
@@ -31,6 +63,17 @@ void SudokuGridView::setupGrid()
 
     setLayout(layout);
     setFixedSize(sizeHint());
+}
+
+void SudokuGridView::setPaused(bool paused)
+{
+    if (paused) {
+        m_pauseOverlay->setGeometry(0, 0, width(), height());
+        m_pauseOverlay->show();
+        m_pauseOverlay->raise();
+    } else {
+        m_pauseOverlay->hide();
+    }
 }
 
 void SudokuGridView::applyValue(int value)
@@ -68,13 +111,10 @@ void SudokuGridView::clearHighlight()
 
 void SudokuGridView::applyHighlight(int row, int col)
 {
-    // Ligne et colonne
     for (int i = 0; i < 9; ++i) {
         if (i != col) m_cells[row][i]->setHighlighted(true);
         if (i != row) m_cells[i][col]->setHighlighted(true);
     }
-
-    // Bloc 3x3
     int blockRow = (row / 3) * 3;
     int blockCol = (col / 3) * 3;
     for (int r = blockRow; r < blockRow + 3; ++r)
@@ -98,6 +138,7 @@ void SudokuGridView::resetView()
 {
     clearHighlight();
     clearSelection();
+    m_pauseOverlay->hide();
 }
 
 void SudokuGridView::onCandidatesUpdated()

@@ -80,22 +80,22 @@ void CellWidget::updateStyle()
     QString bgColor, textColor;
 
     if (m_selected) {
-        bgColor   = "#C8D8F0";
+        bgColor   = "#B8D4ED";  // bleu sélection marqué
         textColor = "#1A2A3A";
     } else if (m_contradiction) {
-        bgColor   = "#FADBD8";
+        bgColor   = "#FADBD8";  // rouge très doux
         textColor = "#C0392B";
     } else if (m_nakedSingle) {
-        bgColor   = "#D6EAF8";
-        textColor = "#1F618D";
+        bgColor   = "#D5F5E3";  // vert doux → "une seule possibilité"
+        textColor = "#1E8449";
     } else if (m_highlighted) {
-        bgColor   = "#D4E6F1";  // bleu très doux pour ligne/col/bloc
+        bgColor   = "#EAF2FB";  // bleu très clair
         textColor = m_fixed ? "#2C3E50" : "#5B8CCC";
     } else if (m_fixed) {
-        bgColor   = "#EAF0F6";
+        bgColor   = "#EAF0F6";  // gris bleuté
         textColor = "#2C3E50";
     } else {
-        bgColor   = "#FFFFFF";
+        bgColor   = "#FFFFFF";  // blanc pur
         textColor = "#5B8CCC";
     }
 

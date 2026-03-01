@@ -47,11 +47,39 @@ void SudokuModel::updateAllCandidates()
 
     emit candidatesUpdated();
 
-    // Check for contradictions
+    // Contradiction 1 : case vide sans candidats
     for (int r = 0; r < 9; ++r)
         for (int c = 0; c < 9; ++c)
             if (m_grid[r][c] == 0 && m_candidates[r][c].isEmpty())
                 emit contradictionDetected(r, c);
+
+    // Contradiction 2 : doublon dans ligne/colonne/bloc
+    for (int r = 0; r < 9; ++r) {
+        for (int c = 0; c < 9; ++c) {
+            int val = m_grid[r][c];
+            if (val == 0) continue;
+
+            bool conflict = false;
+
+            // Ligne
+            for (int k = 0; k < 9; ++k)
+                if (k != c && m_grid[r][k] == val) conflict = true;
+
+            // Colonne
+            for (int k = 0; k < 9; ++k)
+                if (k != r && m_grid[k][c] == val) conflict = true;
+
+            // Bloc 3x3
+            int br = (r / 3) * 3, bc = (c / 3) * 3;
+            for (int dr = 0; dr < 3; ++dr)
+                for (int dc = 0; dc < 3; ++dc)
+                    if ((br+dr != r || bc+dc != c) && m_grid[br+dr][bc+dc] == val)
+                        conflict = true;
+
+            if (conflict)
+                emit contradictionDetected(r, c);
+        }
+    }
 }
 
 void SudokuModel::computeCandidates(int row, int col)

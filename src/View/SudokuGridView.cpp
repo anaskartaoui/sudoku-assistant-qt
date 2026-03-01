@@ -9,7 +9,6 @@ SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
 {
     setupGrid();
 
-    // Overlay pause — par dessus la grille
     m_pauseOverlay = new QLabel(this);
     m_pauseOverlay->setAlignment(Qt::AlignCenter);
     QPixmap px(":/images/pause.png");
@@ -19,7 +18,7 @@ SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
     painter.setCompositionMode(QPainter::CompositionMode_Source);
     painter.drawPixmap(0, 0, px);
     painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    painter.fillRect(colored.rect(), QColor("#7A9AB5")); // couleur souhaitée
+    painter.fillRect(colored.rect(), QColor("#7A9AB5"));
     painter.end();
 
     m_pauseOverlay->setPixmap(
@@ -28,12 +27,6 @@ SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
     m_pauseOverlay->setStyleSheet(
         "QLabel {"
         "  background-color: rgba(221, 230, 240, 220);"
-        "  color: #2C3E50;"
-        "  font-family: 'Oswald';"
-        "  font-size: 44px;"
-        "  font-style: bold;"
-        "  font-weight: 400;"
-        "  letter-spacing: 1px;"
         "}"
         );
     m_pauseOverlay->setGeometry(0, 0, width(), height());
@@ -129,6 +122,8 @@ void SudokuGridView::refreshCell(int row, int col)
     int value            = m_model->getValue(row, col);
     bool fixed           = m_model->isFixed(row, col);
     QSet<int> candidates = m_model->getCandidates(row, col);
+    // On reset uniquement les états liés aux candidats, PAS la contradiction
+    cell->setNakedSingle(false);
     cell->setFixed(fixed);
     cell->setValue(value);
     cell->setCandidates(candidates);
@@ -136,16 +131,32 @@ void SudokuGridView::refreshCell(int row, int col)
 
 void SudokuGridView::resetView()
 {
-    clearHighlight();
-    clearSelection();
+    // Reset complet incluant contradictions
+    for (int r = 0; r < 9; ++r)
+        for (int c = 0; c < 9; ++c) {
+            m_cells[r][c]->setContradiction(false);
+            m_cells[r][c]->setHighlighted(false);
+            m_cells[r][c]->setSelected(false);
+            refreshCell(r, c);
+        }
+    m_selectedRow = -1;
+    m_selectedCol = -1;
     m_pauseOverlay->hide();
 }
 
 void SudokuGridView::onCandidatesUpdated()
 {
+    // Reset contradictions avant refresh
     for (int r = 0; r < 9; ++r)
-        for (int c = 0; c < 9; ++c)
+        for (int c = 0; c < 9; ++c) {
+            m_cells[r][c]->setContradiction(false);
             refreshCell(r, c);
+        }
+    // Réappliquer le highlight si une case est sélectionnée
+    if (m_selectedRow != -1 && m_selectedCol != -1) {
+        m_cells[m_selectedRow][m_selectedCol]->setSelected(true);
+        applyHighlight(m_selectedRow, m_selectedCol);
+    }
 }
 
 void SudokuGridView::onContradictionDetected(int row, int col)

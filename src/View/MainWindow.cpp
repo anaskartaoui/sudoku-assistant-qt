@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "SudokuGridView.h"
 #include "NumPad.h"
+#include "HelpDialog.h"
 #include "../Controller/SudokuController.h"
 
 #include <QMenuBar>
@@ -248,6 +249,11 @@ void MainWindow::setupMenus()
     hintsAction->setCheckable(true);
     hintsAction->setChecked(true);
     connect(hintsAction, &QAction::triggered, this, &MainWindow::onToggleHints);
+
+    QAction *helpAction = helpMenu->addAction(tr("&Guide du joueur"));
+    helpAction->setShortcut(tr("F1"));
+    helpAction->setToolTip(tr("Afficher l'aide"));
+    connect(helpAction, &QAction::triggered, this, &MainWindow::onShowHelp);
 }
 
 void MainWindow::setupToolbar()
@@ -317,4 +323,10 @@ void MainWindow::onToggleHints()
 void MainWindow::onNumberClicked(int value)
 {
     m_gridView->applyValue(value);
+}
+
+void MainWindow::onShowHelp()
+{
+    HelpDialog dialog(this);
+    dialog.exec();
 }

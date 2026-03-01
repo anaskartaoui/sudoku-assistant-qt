@@ -4,7 +4,6 @@
 #include <QTimer>
 #include <QLabel>
 #include <QPushButton>
-
 class SudokuController;
 class SudokuGridView;
 class NumPad;
@@ -25,6 +24,7 @@ private slots:
     void onDifficultySelected(const QString &difficulty);
     void onTimerTick();
     void onPauseClicked();
+    void onShowHelp();
 private:
     void setupMenus();
     void setupToolbar();
@@ -33,7 +33,6 @@ private:
     void setupDifficultyBar();
     void setupTimerBar();
     void resetTimer();
-
     SudokuGridView   *m_gridView;
     SudokuController *m_controller;
     NumPad           *m_numPad;

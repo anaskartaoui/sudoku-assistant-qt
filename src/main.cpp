@@ -11,7 +11,13 @@ int main(int argc, char *argv[])
     app.setApplicationVersion("1.0");
     app.setOrganizationName("UniCaen");
 
-    QFontDatabase::addApplicationFont("://fonts/Oswald-VariableFont_wght.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/Nunito/static/Nunito-Regular.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/Nunito/static/Nunito-Light.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/Nunito/static/Nunito-Bold.ttf");
+    QFontDatabase::addApplicationFont(":/fonts/Nunito/static/Nunito-Medium.ttf");
+
+    QFont appFont("Nunito", 13);
+    app.setFont(appFont);
 
     // Internationalisation
     QTranslator translator;

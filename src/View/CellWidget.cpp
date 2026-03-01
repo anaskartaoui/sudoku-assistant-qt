@@ -128,7 +128,7 @@ void CellWidget::updateStyle()
         bgColor   = "#D5F5E3";
         textColor = "#1E8449";
     } else if (m_highlighted) {
-        bgColor   = "#EAF2FB";
+        bgColor   = "#FEF9E7";
         textColor = m_fixed ? "#2C3E50" : "#5B8CCC";
     } else if (m_fixed) {
         bgColor   = "#EAF0F6";

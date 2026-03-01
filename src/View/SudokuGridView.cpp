@@ -2,12 +2,14 @@
 #include "../Model/SudokuModel.h"
 #include <QGridLayout>
 #include <QPainter>
+#include <QKeyEvent>
 
 SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
     : QWidget(parent), m_model(model),
     m_selectedRow(-1), m_selectedCol(-1)
 {
     setupGrid();
+    setFocusPolicy(Qt::StrongFocus);
 
     m_pauseOverlay = new QLabel(this);
     m_pauseOverlay->setAlignment(Qt::AlignCenter);
@@ -25,9 +27,7 @@ SudokuGridView::SudokuGridView(SudokuModel *model, QWidget *parent)
         colored.scaled(120, 120, Qt::KeepAspectRatio, Qt::SmoothTransformation)
         );
     m_pauseOverlay->setStyleSheet(
-        "QLabel {"
-        "  background-color: rgba(221, 230, 240, 220);"
-        "}"
+        "QLabel { background-color: rgba(221, 230, 240, 220); }"
         );
     m_pauseOverlay->setGeometry(0, 0, width(), height());
     m_pauseOverlay->hide();
@@ -58,6 +58,51 @@ void SudokuGridView::setupGrid()
     setFixedSize(sizeHint());
 }
 
+void SudokuGridView::selectCell(int row, int col)
+{
+    if (row < 0 || row > 8 || col < 0 || col > 8) return;
+    clearHighlight();
+    clearSelection();
+    m_selectedRow = row;
+    m_selectedCol = col;
+    m_cells[row][col]->setSelected(true);
+    applyHighlight(row, col);
+    emit cellSelected(row, col);
+}
+
+void SudokuGridView::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+    case Qt::Key_Up:
+        if (m_selectedRow > 0) selectCell(m_selectedRow - 1, m_selectedCol);
+        break;
+    case Qt::Key_Down:
+        if (m_selectedRow < 8) selectCell(m_selectedRow + 1, m_selectedCol);
+        break;
+    case Qt::Key_Left:
+        if (m_selectedCol > 0) selectCell(m_selectedRow, m_selectedCol - 1);
+        break;
+    case Qt::Key_Right:
+        if (m_selectedCol < 8) selectCell(m_selectedRow, m_selectedCol + 1);
+        break;
+    case Qt::Key_Delete:
+    case Qt::Key_Backspace:
+        applyValue(0);
+        break;
+    case Qt::Key_Escape:
+        clearHighlight();
+        clearSelection();
+        break;
+    case Qt::Key_1: case Qt::Key_2: case Qt::Key_3:
+    case Qt::Key_4: case Qt::Key_5: case Qt::Key_6:
+    case Qt::Key_7: case Qt::Key_8: case Qt::Key_9:
+        applyValue(event->key() - Qt::Key_0);
+        break;
+    default:
+        QWidget::keyPressEvent(event);
+    }
+}
+
 void SudokuGridView::setPaused(bool paused)
 {
     if (paused) {
@@ -78,13 +123,8 @@ void SudokuGridView::applyValue(int value)
 
 void SudokuGridView::onCellClicked(int row, int col)
 {
-    clearHighlight();
-    clearSelection();
-    m_selectedRow = row;
-    m_selectedCol = col;
-    m_cells[row][col]->setSelected(true);
-    applyHighlight(row, col);
-    emit cellSelected(row, col);
+    selectCell(row, col);
+    setFocus();
 }
 
 void SudokuGridView::clearSelection()
@@ -122,7 +162,6 @@ void SudokuGridView::refreshCell(int row, int col)
     int value            = m_model->getValue(row, col);
     bool fixed           = m_model->isFixed(row, col);
     QSet<int> candidates = m_model->getCandidates(row, col);
-    // On reset uniquement les états liés aux candidats, PAS la contradiction
     cell->setNakedSingle(false);
     cell->setFixed(fixed);
     cell->setValue(value);
@@ -131,7 +170,6 @@ void SudokuGridView::refreshCell(int row, int col)
 
 void SudokuGridView::resetView()
 {
-    // Reset complet incluant contradictions
     for (int r = 0; r < 9; ++r)
         for (int c = 0; c < 9; ++c) {
             m_cells[r][c]->setContradiction(false);
@@ -146,13 +184,11 @@ void SudokuGridView::resetView()
 
 void SudokuGridView::onCandidatesUpdated()
 {
-    // Reset contradictions avant refresh
     for (int r = 0; r < 9; ++r)
         for (int c = 0; c < 9; ++c) {
             m_cells[r][c]->setContradiction(false);
             refreshCell(r, c);
         }
-    // Réappliquer le highlight si une case est sélectionnée
     if (m_selectedRow != -1 && m_selectedCol != -1) {
         m_cells[m_selectedRow][m_selectedCol]->setSelected(true);
         applyHighlight(m_selectedRow, m_selectedCol);

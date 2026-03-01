@@ -21,12 +21,15 @@ public slots:
     void onContradictionDetected(int row, int col);
 private slots:
     void onCellClicked(int row, int col);
+protected:
+    void keyPressEvent(QKeyEvent *event) override;
 private:
     void setupGrid();
     void refreshCell(int row, int col);
     void clearSelection();
     void applyHighlight(int row, int col);
     void clearHighlight();
+    void selectCell(int row, int col);
     SudokuModel *m_model;
     CellWidget  *m_cells[9][9];
     int          m_selectedRow;

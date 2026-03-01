@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QSet>
+#include <QGridLayout>
 
 class CellWidget : public QWidget
 {
@@ -23,15 +24,14 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent *event) override;
 private:
-    int     m_row;
-    int     m_col;
-    int     m_value;
-    bool    m_fixed;
-    bool    m_selected;
-    bool    m_contradiction;
-    bool    m_nakedSingle;
-    bool    m_highlighted;
-    QLabel *m_label;
+    int       m_row, m_col, m_value;
+    bool      m_fixed, m_selected, m_contradiction, m_nakedSingle, m_highlighted;
+    QSet<int> m_candidates;
+    QLabel      *m_label;
+    QLabel      *m_pencilLabels[9];
+    QGridLayout *m_pencilLayout;
+    QWidget     *m_pencilWidget;
     void updateStyle();
+    void updatePencilMarks();
 };
 #endif // CELLWIDGET_H

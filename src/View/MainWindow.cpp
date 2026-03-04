@@ -25,7 +25,18 @@ MainWindow::MainWindow(QWidget *parent)
     setWindowTitle(tr("Sudoku Assistant"));
     resize(1280, 800);
 
-    setStyleSheet("QMainWindow { background-color: #DDE6F0; }");
+    setStyleSheet(
+        "QMainWindow { background-color: #DDE6F0; }"
+        "QToolTip {"
+        "  background-color: #FFFFFF;"
+        "  color: #2C3E50;"
+        "  border: solid #B0BEC5;"
+        "  border-radius: 6px;"
+        "  padding: 4px 8px;"
+        "  font-family: Nunito;"
+        "  font-size: 12px;"
+        "}"
+        );
 
     m_controller = new SudokuController(this);
     m_timer      = new QTimer(this);
@@ -100,14 +111,21 @@ void MainWindow::setupDifficultyBar()
         "  border: 1px solid #7A9AB5;"
         "}";
 
-    QStringList levels = { tr("Facile"), tr("Moyen"), tr("Difficile"), tr("Insane") };
-    QStringList keys   = { "Easy",       "Medium",    "Hard",          "Insane"     };
+    QStringList levels   = { tr("Facile"), tr("Moyen"), tr("Difficile"), tr("Insane") };
+    QStringList keys     = { "Easy",       "Medium",    "Hard",          "Insane"     };
+    QStringList tooltips = {
+        tr("Grilles simples, idéales pour débuter"),
+        tr("Grilles de difficulté intermédiaire"),
+        tr("Grilles complexes pour joueurs expérimentés"),
+        tr("Grilles extrêmement difficiles")
+    };
 
     for (int i = 0; i < levels.size(); ++i) {
         QPushButton *btn = new QPushButton(levels[i], m_difficultyBar);
         btn->setStyleSheet(btnStyle);
         btn->setCheckable(true);
         btn->setProperty("difficulty", keys[i]);
+        btn->setToolTip(tooltips[i]);
         if (i == 0) btn->setChecked(true);
         group->addButton(btn);
         layout->addWidget(btn);
@@ -147,7 +165,7 @@ void MainWindow::setupTimerBar()
         "}"
         "QPushButton:hover { background-color: #C8D8F0; }"
         );
-    m_pauseBtn->setToolTip(tr("Pause / Reprendre"));
+    m_pauseBtn->setToolTip(tr("Mettre le jeu en pause"));
 
     connect(m_pauseBtn, &QPushButton::clicked, this, &MainWindow::onPauseClicked);
 
@@ -167,7 +185,7 @@ void MainWindow::setupTimerBar()
         "}"
         "QPushButton:hover { background-color: #C8D8F0; }"
         );
-    restartBtn->setToolTip(tr("Recommencer la partie"));
+    restartBtn->setToolTip(tr("Recommencer la partie depuis le début"));
     connect(restartBtn, &QPushButton::clicked, this, &MainWindow::onNewGrid);
 
     layout->addWidget(m_timerLabel);
@@ -234,16 +252,19 @@ void MainWindow::setupMenus()
 
     QAction *quitAction = fileMenu->addAction(tr("&Quitter"));
     quitAction->setShortcut(QKeySequence::Quit);
+    quitAction->setToolTip(tr("Quitter l'application"));
     connect(quitAction, &QAction::triggered, this, &QWidget::close);
 
     QMenu *editMenu = menuBar()->addMenu(tr("&Édition"));
 
     QAction *undoAction = editMenu->addAction(tr("&Annuler"));
     undoAction->setShortcut(QKeySequence::Undo);
+    undoAction->setToolTip(tr("Annuler la dernière action"));
     connect(undoAction, &QAction::triggered, this, &MainWindow::onUndo);
 
     QAction *redoAction = editMenu->addAction(tr("&Rétablir"));
     redoAction->setShortcut(QKeySequence::Redo);
+    redoAction->setToolTip(tr("Rétablir la dernière action annulée"));
     connect(redoAction, &QAction::triggered, this, &MainWindow::onRedo);
 
     QMenu *helpMenu = menuBar()->addMenu(tr("&Aide"));
@@ -252,6 +273,7 @@ void MainWindow::setupMenus()
     hintsAction->setShortcut(tr("Ctrl+H"));
     hintsAction->setCheckable(true);
     hintsAction->setChecked(true);
+    hintsAction->setToolTip(tr("Afficher ou masquer les indices de cases"));
     connect(hintsAction, &QAction::triggered, this, &MainWindow::onToggleHints);
 
     QAction *helpAction = helpMenu->addAction(tr("&Guide du joueur"));

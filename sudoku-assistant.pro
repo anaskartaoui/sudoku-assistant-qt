@@ -8,7 +8,6 @@ TARGET   = sudoku-assistant
 TEMPLATE = app
 
 SOURCES += \
-    src/View/HelpDialog.cpp \
     src/main.cpp \
     src/Model/SudokuModel.cpp \
     src/Model/SudokuSolver.cpp \
@@ -16,19 +15,20 @@ SOURCES += \
     src/View/SudokuGridView.cpp \
     src/View/CellWidget.cpp \
     src/View/NumPad.cpp \
+    src/View/HelpDialog.cpp \
+    src/View/VictoryDialog.cpp \
     src/Controller/SudokuController.cpp
-    src/View/HelpDialog.cpp
 
 HEADERS += \
     src/Model/SudokuModel.h \
     src/Model/SudokuSolver.h \
-    src/View/HelpDialog.h \
     src/View/MainWindow.h \
     src/View/SudokuGridView.h \
     src/View/CellWidget.h \
     src/View/NumPad.h \
+    src/View/HelpDialog.h \
+    src/View/VictoryDialog.h \
     src/Controller/SudokuController.h
-    src/View/HelpDialog.h
 
 
 TRANSLATIONS += \

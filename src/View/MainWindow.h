@@ -25,6 +25,7 @@ private slots:
     void onTimerTick();
     void onPauseClicked();
     void onShowHelp();
+    void onGridSolved();
 private:
     void setupMenus();
     void setupToolbar();

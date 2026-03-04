@@ -2,7 +2,9 @@
 #include "SudokuGridView.h"
 #include "NumPad.h"
 #include "HelpDialog.h"
+#include "VictoryDialog.h"
 #include "../Controller/SudokuController.h"
+#include "../Model/SudokuModel.h"
 
 #include <QMenuBar>
 #include <QToolBar>
@@ -39,6 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::onNumberClicked);
     connect(m_timer, &QTimer::timeout,
             this, &MainWindow::onTimerTick);
+    connect(m_controller->model(), &SudokuModel::gridSolved,
+            this, &MainWindow::onGridSolved);
 
     m_controller->loadDefaultGrid();
     resetTimer();
@@ -328,5 +332,16 @@ void MainWindow::onNumberClicked(int value)
 void MainWindow::onShowHelp()
 {
     HelpDialog dialog(this);
+    dialog.exec();
+}
+
+void MainWindow::onGridSolved()
+{
+    m_timer->stop();
+    m_paused = true;
+    m_pauseBtn->setText("▶");
+
+    VictoryDialog dialog(m_seconds, this);
+    connect(&dialog, &VictoryDialog::newGameRequested, this, &MainWindow::onNewGrid);
     dialog.exec();
 }

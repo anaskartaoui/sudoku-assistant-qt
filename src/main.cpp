@@ -19,12 +19,11 @@ int main(int argc, char *argv[])
     QFont appFont("Nunito", 13);
     app.setFont(appFont);
 
-    // Internationalisation
-    QTranslator translator;
+    // Load translation matching the system locale
+    static QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
     for (const QString &locale : uiLanguages) {
-        const QString baseName = "sudoku_" + QLocale(locale).name();
-        if (translator.load(":/i18n/" + baseName)) {
+        if (translator.load(":/i18n/sudoku_" + QLocale(locale).name() + ".qm")) {
             app.installTranslator(&translator);
             break;
         }

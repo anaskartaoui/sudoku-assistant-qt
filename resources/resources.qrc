@@ -17,5 +17,7 @@
         <file>fonts/Nunito/static/Nunito-Regular.ttf</file>
         <file>fonts/Nunito/static/Nunito-Medium.ttf</file>
         <file>fonts/Nunito/Nunito-VariableFont_wght.ttf</file>
+        <file>i18n/sudoku_fr.qm</file>
+        <file>i18n/sudoku_en.qm</file>
     </qresource>
 </RCC>

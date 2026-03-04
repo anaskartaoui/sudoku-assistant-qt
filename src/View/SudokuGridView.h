@@ -16,6 +16,7 @@ public:
 signals:
     void cellSelected(int row, int col);
     void valueChanged(int row, int col, int value);
+    void pauseToggled();
 public slots:
     void onCandidatesUpdated();
     void onContradictionDetected(int row, int col);

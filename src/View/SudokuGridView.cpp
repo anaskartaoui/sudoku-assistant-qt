@@ -89,6 +89,9 @@ void SudokuGridView::keyPressEvent(QKeyEvent *event)
     case Qt::Key_Backspace:
         applyValue(0);
         break;
+    case Qt::Key_Space:
+        emit pauseToggled();
+        break;
     case Qt::Key_Escape:
         clearHighlight();
         clearSelection();

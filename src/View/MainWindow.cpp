@@ -18,6 +18,9 @@
 #include <QButtonGroup>
 #include <QLabel>
 #include <QTimer>
+#include <QTranslator>
+#include <QCoreApplication>
+#include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), m_seconds(0), m_paused(false)
@@ -54,6 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
             this, &MainWindow::onTimerTick);
     connect(m_controller->model(), &SudokuModel::gridSolved,
             this, &MainWindow::onGridSolved);
+    connect(m_gridView, &SudokuGridView::pauseToggled,
+            this, &MainWindow::onPauseClicked);
 
     m_controller->loadDefaultGrid();
     resetTimer();
@@ -111,24 +116,17 @@ void MainWindow::setupDifficultyBar()
         "  border: 1px solid #7A9AB5;"
         "}";
 
-    QStringList levels   = { tr("Facile"), tr("Moyen"), tr("Difficile"), tr("Insane") };
-    QStringList keys     = { "Easy",       "Medium",    "Hard",          "Insane"     };
-    QStringList tooltips = {
-        tr("Grilles simples, idéales pour débuter"),
-        tr("Grilles de difficulté intermédiaire"),
-        tr("Grilles complexes pour joueurs expérimentés"),
-        tr("Grilles extrêmement difficiles")
-    };
+    QStringList keys = { "Easy", "Medium", "Hard", "Insane" };
 
-    for (int i = 0; i < levels.size(); ++i) {
-        QPushButton *btn = new QPushButton(levels[i], m_difficultyBar);
+    for (int i = 0; i < keys.size(); ++i) {
+        QPushButton *btn = new QPushButton(m_difficultyBar);
         btn->setStyleSheet(btnStyle);
         btn->setCheckable(true);
         btn->setProperty("difficulty", keys[i]);
-        btn->setToolTip(tooltips[i]);
         if (i == 0) btn->setChecked(true);
         group->addButton(btn);
         layout->addWidget(btn);
+        m_difficultyButtons.append(btn);
         connect(btn, &QPushButton::clicked, this, [this, keys, i]() {
             onDifficultySelected(keys[i]);
         });
@@ -165,17 +163,11 @@ void MainWindow::setupTimerBar()
         "}"
         "QPushButton:hover { background-color: #C8D8F0; }"
         );
-    m_pauseBtn->setToolTip(tr("Mettre le jeu en pause"));
-
     connect(m_pauseBtn, &QPushButton::clicked, this, &MainWindow::onPauseClicked);
 
-    layout->addWidget(m_timerLabel);
-    layout->addWidget(m_pauseBtn);
-    m_timerBar->setLayout(layout);
-
-    QPushButton *restartBtn = new QPushButton("↺", m_timerBar);
-    restartBtn->setFixedSize(32, 32);
-    restartBtn->setStyleSheet(
+    m_restartBtn = new QPushButton("↺", m_timerBar);
+    m_restartBtn->setFixedSize(32, 32);
+    m_restartBtn->setStyleSheet(
         "QPushButton {"
         "  background-color: #FFFFFF;"
         "  color: #2C3E50;"
@@ -185,12 +177,12 @@ void MainWindow::setupTimerBar()
         "}"
         "QPushButton:hover { background-color: #C8D8F0; }"
         );
-    restartBtn->setToolTip(tr("Recommencer la partie depuis le début"));
-    connect(restartBtn, &QPushButton::clicked, this, &MainWindow::onNewGrid);
+    connect(m_restartBtn, &QPushButton::clicked, this, &MainWindow::onNewGrid);
 
     layout->addWidget(m_timerLabel);
     layout->addWidget(m_pauseBtn);
-    layout->addWidget(restartBtn);
+    layout->addWidget(m_restartBtn);
+    m_timerBar->setLayout(layout);
 }
 
 void MainWindow::resetTimer()
@@ -236,50 +228,56 @@ void MainWindow::setupMenus()
         "QMenu::item:selected { background-color: #DDE6F0; }"
         );
 
-    QMenu *fileMenu = menuBar()->addMenu(tr("&Fichier"));
+    m_fileMenu = menuBar()->addMenu(QString());
 
-    QAction *newAction = fileMenu->addAction(tr("&Nouvelle grille"));
-    newAction->setShortcut(QKeySequence::New);
-    newAction->setToolTip(tr("Charger une nouvelle grille"));
-    connect(newAction, &QAction::triggered, this, &MainWindow::onNewGrid);
+    m_newAction = m_fileMenu->addAction(QString());
+    m_newAction->setShortcut(QKeySequence::New);
+    connect(m_newAction, &QAction::triggered, this, &MainWindow::onNewGrid);
 
-    QAction *loadAction = fileMenu->addAction(tr("&Ouvrir grille..."));
-    loadAction->setShortcut(QKeySequence::Open);
-    loadAction->setToolTip(tr("Ouvrir une grille depuis un fichier"));
-    connect(loadAction, &QAction::triggered, this, &MainWindow::onLoadGrid);
+    m_loadAction = m_fileMenu->addAction(QString());
+    m_loadAction->setShortcut(QKeySequence::Open);
+    connect(m_loadAction, &QAction::triggered, this, &MainWindow::onLoadGrid);
 
-    fileMenu->addSeparator();
+    m_fileMenu->addSeparator();
 
-    QAction *quitAction = fileMenu->addAction(tr("&Quitter"));
-    quitAction->setShortcut(QKeySequence::Quit);
-    quitAction->setToolTip(tr("Quitter l'application"));
-    connect(quitAction, &QAction::triggered, this, &QWidget::close);
+    m_quitAction = m_fileMenu->addAction(QString());
+    m_quitAction->setShortcut(QKeySequence::Quit);
+    m_quitAction->setMenuRole(QAction::NoRole);
+    connect(m_quitAction, &QAction::triggered, this, &QWidget::close);
 
-    QMenu *editMenu = menuBar()->addMenu(tr("&Édition"));
+    m_editMenu = menuBar()->addMenu(QString());
 
-    QAction *undoAction = editMenu->addAction(tr("&Annuler"));
-    undoAction->setShortcut(QKeySequence::Undo);
-    undoAction->setToolTip(tr("Annuler la dernière action"));
-    connect(undoAction, &QAction::triggered, this, &MainWindow::onUndo);
+    m_undoAction = m_editMenu->addAction(QString());
+    m_undoAction->setShortcut(QKeySequence::Undo);
+    connect(m_undoAction, &QAction::triggered, this, &MainWindow::onUndo);
 
-    QAction *redoAction = editMenu->addAction(tr("&Rétablir"));
-    redoAction->setShortcut(QKeySequence::Redo);
-    redoAction->setToolTip(tr("Rétablir la dernière action annulée"));
-    connect(redoAction, &QAction::triggered, this, &MainWindow::onRedo);
+    m_redoAction = m_editMenu->addAction(QString());
+    m_redoAction->setShortcut(QKeySequence::Redo);
+    connect(m_redoAction, &QAction::triggered, this, &MainWindow::onRedo);
 
-    QMenu *helpMenu = menuBar()->addMenu(tr("&Aide"));
+    m_helpMenu = menuBar()->addMenu(QString());
 
-    QAction *hintsAction = helpMenu->addAction(tr("Activer/désactiver les &indices"));
-    hintsAction->setShortcut(tr("Ctrl+H"));
-    hintsAction->setCheckable(true);
-    hintsAction->setChecked(true);
-    hintsAction->setToolTip(tr("Afficher ou masquer les indices de cases"));
-    connect(hintsAction, &QAction::triggered, this, &MainWindow::onToggleHints);
+    m_hintsAction = m_helpMenu->addAction(QString());
+    m_hintsAction->setShortcut(tr("Ctrl+H"));
+    m_hintsAction->setCheckable(true);
+    m_hintsAction->setChecked(true);
+    connect(m_hintsAction, &QAction::triggered, this, &MainWindow::onToggleHints);
 
-    QAction *helpAction = helpMenu->addAction(tr("&Guide du joueur"));
-    helpAction->setShortcut(tr("F1"));
-    helpAction->setToolTip(tr("Afficher l'aide"));
-    connect(helpAction, &QAction::triggered, this, &MainWindow::onShowHelp);
+    m_helpAction = m_helpMenu->addAction(QString());
+    m_helpAction->setShortcut(tr("F1"));
+    connect(m_helpAction, &QAction::triggered, this, &MainWindow::onShowHelp);
+
+    m_helpMenu->addSeparator();
+
+    m_langMenu = m_helpMenu->addMenu(QString());
+
+    QAction *frAction = m_langMenu->addAction("Français");
+    connect(frAction, &QAction::triggered, this, [this]() { onLanguageChanged("fr"); });
+
+    QAction *enAction = m_langMenu->addAction("English");
+    connect(enAction, &QAction::triggered, this, [this]() { onLanguageChanged("en"); });
+
+    retranslateUi();
 }
 
 void MainWindow::setupToolbar()
@@ -291,10 +289,69 @@ void MainWindow::setupToolbar()
 
 void MainWindow::setupStatusBar()
 {
-    statusBar()->showMessage(tr("Prêt — Sélectionnez une case puis un chiffre."));
     statusBar()->setStyleSheet(
         "QStatusBar { background-color: #DDE6F0; color: #2C3E50; font-size: 13px; padding: 4px; }"
         );
+}
+
+void MainWindow::retranslateUi()
+{
+    setWindowTitle(tr("Sudoku Assistant"));
+
+    // Menus
+    m_fileMenu->setTitle(tr("&Fichier"));
+    m_editMenu->setTitle(tr("&Édition"));
+    m_helpMenu->setTitle(tr("&Aide"));
+    m_langMenu->setTitle(tr("&Langue"));
+
+    // File actions
+    m_newAction->setText(tr("&Nouvelle grille"));
+    m_newAction->setToolTip(tr("Charger une nouvelle grille"));
+    m_loadAction->setText(tr("&Ouvrir grille..."));
+    m_loadAction->setToolTip(tr("Ouvrir une grille depuis un fichier"));
+    m_quitAction->setText(tr("&Quitter"));
+    m_quitAction->setToolTip(tr("Quitter l'application"));
+
+    // Edit actions
+    m_undoAction->setText(tr("&Annuler"));
+    m_undoAction->setToolTip(tr("Annuler la dernière action"));
+    m_redoAction->setText(tr("&Rétablir"));
+    m_redoAction->setToolTip(tr("Rétablir la dernière action annulée"));
+
+    // Help actions
+    m_hintsAction->setText(tr("Activer/désactiver les &indices"));
+    m_hintsAction->setToolTip(tr("Afficher ou masquer les indices de cases"));
+    m_helpAction->setText(tr("&Guide du joueur"));
+    m_helpAction->setToolTip(tr("Afficher l'aide"));
+
+    // Difficulty buttons
+    const QStringList labels = { tr("Facile"), tr("Moyen"), tr("Difficile"), tr("Insane") };
+    const QStringList tips   = {
+        tr("Grilles simples, idéales pour débuter"),
+        tr("Grilles de difficulté intermédiaire"),
+        tr("Grilles complexes pour joueurs expérimentés"),
+        tr("Grilles extrêmement difficiles")
+    };
+    for (int i = 0; i < m_difficultyButtons.size(); ++i) {
+        m_difficultyButtons[i]->setText(labels[i]);
+        m_difficultyButtons[i]->setToolTip(tips[i]);
+    }
+
+    // Timer bar
+    m_pauseBtn->setToolTip(tr("Mettre le jeu en pause"));
+    m_restartBtn->setToolTip(tr("Recommencer la partie depuis le début"));
+
+    // Status bar
+    statusBar()->showMessage(tr("Prêt — Sélectionnez une case puis un chiffre."));
+}
+
+void MainWindow::onLanguageChanged(const QString &lang)
+{
+    static QTranslator translator;
+    QCoreApplication::removeTranslator(&translator);
+    translator.load(":/i18n/sudoku_" + lang + ".qm");
+    QCoreApplication::installTranslator(&translator);
+    retranslateUi();
 }
 
 void MainWindow::onNewGrid()

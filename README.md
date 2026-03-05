@@ -4,6 +4,14 @@ Application d'assistance au Sudoku developpee en C++17 avec le framework Qt6, su
 
 ---
 
+## Demo
+
+**[Voir la video de demonstration](resources/images/demo.mov)**
+
+`resources/images/demo.mov`
+
+---
+
 ## Fonctionnalites
 
 ### Gestion des grilles

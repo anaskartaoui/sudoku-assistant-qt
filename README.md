@@ -433,8 +433,6 @@ Exemple pour un fichier contenant deux grilles :
 
 ## Contexte academique
 
-Ce projet a ete realise dans le cadre d'un cours de genie logiciel et d'interfaces graphiques en deuxieme annee de master. Il a pour objectif de mettre en pratique les patrons de conception orientee objet (MVP, Observateur), la programmation en C++17, et le developpement d'interfaces graphiques avec le framework Qt6.
+Ce projet a ete realise dans le cadre d'un cours de genie logiciel et d'interfaces graphiques en deuxieme annee a l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientee objet (MVP, Observateur), la programmation en C++17, et le developpement d'interfaces graphiques avec le framework Qt6.
 
 - **Auteur** : Anas Kartaoui
-- **Etablissement** : Universite de Caen Normandie
-- **Cours** : Interfaces graphiques et genie logiciel

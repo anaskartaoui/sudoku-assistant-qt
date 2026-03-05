@@ -164,7 +164,7 @@ void SudokuGridView::refreshCell(int row, int col)
     CellWidget *cell     = m_cells[row][col];
     int value            = m_model->getValue(row, col);
     bool fixed           = m_model->isFixed(row, col);
-    QSet<int> candidates = m_model->getCandidates(row, col);
+    QSet<int> candidates = m_model->hintsEnabled() ? m_model->getCandidates(row, col) : QSet<int>();
     cell->setNakedSingle(false);
     cell->setFixed(fixed);
     cell->setValue(value);

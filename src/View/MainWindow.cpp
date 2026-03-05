@@ -23,7 +23,7 @@
 #include <QMenu>
 
 MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent), m_seconds(0), m_paused(false)
+    : QMainWindow(parent), m_seconds(0), m_paused(false), m_currentLang("fr")
 {
     setWindowTitle(tr("Sudoku Assistant"));
     resize(1280, 800);
@@ -179,9 +179,47 @@ void MainWindow::setupTimerBar()
         );
     connect(m_restartBtn, &QPushButton::clicked, this, &MainWindow::onNewGrid);
 
+    QString roundBtnStyle =
+        "QPushButton {"
+        "  background-color: #FFFFFF;"
+        "  color: #2C3E50;"
+        "  border: 1px solid #B0BEC5;"
+        "  border-radius: 16px;"
+        "  font-size: 13px;"
+        "  font-weight: bold;"
+        "}"
+        "QPushButton:hover { background-color: #C8D8F0; }"
+        "QPushButton:checked {"
+        "  background-color: #7A9AB5;"
+        "  color: #FFFFFF;"
+        "  border: 1px solid #7A9AB5;"
+        "}";
+
+    m_hintsBtn = new QPushButton("H", m_timerBar);
+    m_hintsBtn->setFixedSize(32, 32);
+    m_hintsBtn->setCheckable(true);
+    m_hintsBtn->setChecked(true);
+    m_hintsBtn->setStyleSheet(roundBtnStyle);
+    connect(m_hintsBtn, &QPushButton::clicked, this, &MainWindow::onToggleHints);
+
+    m_helpBtn = new QPushButton("?", m_timerBar);
+    m_helpBtn->setFixedSize(32, 32);
+    m_helpBtn->setStyleSheet(roundBtnStyle);
+    connect(m_helpBtn, &QPushButton::clicked, this, &MainWindow::onShowHelp);
+
+    m_langBtn = new QPushButton("FR", m_timerBar);
+    m_langBtn->setFixedSize(32, 32);
+    m_langBtn->setStyleSheet(roundBtnStyle);
+    connect(m_langBtn, &QPushButton::clicked, this, [this]() {
+        onLanguageChanged(m_currentLang == "fr" ? "en" : "fr");
+    });
+
     layout->addWidget(m_timerLabel);
     layout->addWidget(m_pauseBtn);
     layout->addWidget(m_restartBtn);
+    layout->addWidget(m_hintsBtn);
+    layout->addWidget(m_helpBtn);
+    layout->addWidget(m_langBtn);
     m_timerBar->setLayout(layout);
 }
 
@@ -340,6 +378,10 @@ void MainWindow::retranslateUi()
     // Timer bar
     m_pauseBtn->setToolTip(tr("Mettre le jeu en pause"));
     m_restartBtn->setToolTip(tr("Recommencer la partie depuis le début"));
+    m_hintsBtn->setToolTip(tr("Activer/désactiver les indices"));
+    m_helpBtn->setToolTip(tr("Afficher l'aide"));
+    m_langBtn->setText(m_currentLang.toUpper());
+    m_langBtn->setToolTip(tr("Changer de langue"));
 
     // Status bar
     statusBar()->showMessage(tr("Prêt — Sélectionnez une case puis un chiffre."));
@@ -347,6 +389,7 @@ void MainWindow::retranslateUi()
 
 void MainWindow::onLanguageChanged(const QString &lang)
 {
+    m_currentLang = lang;
     static QTranslator translator;
     QCoreApplication::removeTranslator(&translator);
     translator.load(":/i18n/sudoku_" + lang + ".qm");
@@ -401,6 +444,9 @@ void MainWindow::onRedo()
 void MainWindow::onToggleHints()
 {
     m_controller->toggleHints();
+    bool hintsOn = m_controller->model()->hintsEnabled();
+    m_hintsBtn->setChecked(hintsOn);
+    m_hintsAction->setChecked(hintsOn);
 }
 
 void MainWindow::onNumberClicked(int value)
@@ -420,7 +466,9 @@ void MainWindow::onGridSolved()
     m_paused = true;
     m_pauseBtn->setText("▶");
 
-    VictoryDialog dialog(m_seconds, this);
-    connect(&dialog, &VictoryDialog::newGameRequested, this, &MainWindow::onNewGrid);
-    dialog.exec();
+    VictoryDialog *dialog = new VictoryDialog(m_seconds, this);
+    connect(dialog, &VictoryDialog::newGameRequested, this,  &MainWindow::onNewGrid,   Qt::QueuedConnection);
+    connect(dialog, &VictoryDialog::newGameRequested, dialog, &VictoryDialog::accept);
+    dialog->exec();
+    dialog->deleteLater();
 }

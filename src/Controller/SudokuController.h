@@ -21,7 +21,6 @@ public slots:
     void redo();
 private:
     SudokuModel *m_model;
-    bool m_hintsEnabled;
     using CellState = QPair<QPair<int,int>, int>;
     QStack<CellState> m_undoStack;
     QStack<CellState> m_redoStack;

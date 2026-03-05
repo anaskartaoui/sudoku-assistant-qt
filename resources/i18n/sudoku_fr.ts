@@ -75,26 +75,31 @@
     </message>
     <message>
         <location filename="../../src/View/HelpDialog.cpp" line="122"/>
-        <source>Annuler la dernière action</source>
+        <source>Mettre le jeu en pause / reprendre</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/View/HelpDialog.cpp" line="123"/>
-        <source>Rétablir</source>
+        <source>Annuler la dernière action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/View/HelpDialog.cpp" line="124"/>
-        <source>Nouvelle grille</source>
+        <source>Rétablir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../../src/View/HelpDialog.cpp" line="125"/>
+        <source>Nouvelle grille</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/View/HelpDialog.cpp" line="126"/>
         <source>Activer/désactiver les indices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/HelpDialog.cpp" line="130"/>
+        <location filename="../../src/View/HelpDialog.cpp" line="131"/>
         <source>Fermer</source>
         <translation type="unfinished"></translation>
     </message>
@@ -103,202 +108,207 @@
     <name>MainWindow</name>
     <message>
         <location filename="../../src/View/MainWindow.cpp" line="28"/>
-        <location filename="../../src/View/MainWindow.cpp" line="298"/>
+        <location filename="../../src/View/MainWindow.cpp" line="324"/>
         <source>Sudoku Assistant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="327"/>
+        <location filename="../../src/View/MainWindow.cpp" line="353"/>
         <source>Facile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="327"/>
+        <location filename="../../src/View/MainWindow.cpp" line="353"/>
         <source>Moyen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="327"/>
+        <location filename="../../src/View/MainWindow.cpp" line="353"/>
         <source>Difficile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="327"/>
+        <location filename="../../src/View/MainWindow.cpp" line="353"/>
         <source>Insane</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="329"/>
+        <location filename="../../src/View/MainWindow.cpp" line="355"/>
         <source>Grilles simples, idéales pour débuter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="330"/>
+        <location filename="../../src/View/MainWindow.cpp" line="356"/>
         <source>Grilles de difficulté intermédiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="331"/>
+        <location filename="../../src/View/MainWindow.cpp" line="357"/>
         <source>Grilles complexes pour joueurs expérimentés</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="332"/>
+        <location filename="../../src/View/MainWindow.cpp" line="358"/>
         <source>Grilles extrêmement difficiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="340"/>
+        <location filename="../../src/View/MainWindow.cpp" line="366"/>
         <source>Mettre le jeu en pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="341"/>
+        <location filename="../../src/View/MainWindow.cpp" line="367"/>
         <source>Recommencer la partie depuis le début</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="301"/>
+        <location filename="../../src/View/MainWindow.cpp" line="327"/>
         <source>&amp;Fichier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="307"/>
+        <location filename="../../src/View/MainWindow.cpp" line="333"/>
         <source>&amp;Nouvelle grille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="308"/>
+        <location filename="../../src/View/MainWindow.cpp" line="334"/>
         <source>Charger une nouvelle grille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="309"/>
+        <location filename="../../src/View/MainWindow.cpp" line="335"/>
         <source>&amp;Ouvrir grille...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="310"/>
+        <location filename="../../src/View/MainWindow.cpp" line="336"/>
         <source>Ouvrir une grille depuis un fichier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="311"/>
+        <location filename="../../src/View/MainWindow.cpp" line="337"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="312"/>
+        <location filename="../../src/View/MainWindow.cpp" line="338"/>
         <source>Quitter l&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="302"/>
+        <location filename="../../src/View/MainWindow.cpp" line="328"/>
         <source>&amp;Édition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="315"/>
+        <location filename="../../src/View/MainWindow.cpp" line="341"/>
         <source>&amp;Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="316"/>
+        <location filename="../../src/View/MainWindow.cpp" line="342"/>
         <source>Annuler la dernière action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="317"/>
+        <location filename="../../src/View/MainWindow.cpp" line="343"/>
         <source>&amp;Rétablir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="318"/>
+        <location filename="../../src/View/MainWindow.cpp" line="344"/>
         <source>Rétablir la dernière action annulée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="303"/>
+        <location filename="../../src/View/MainWindow.cpp" line="329"/>
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="321"/>
+        <location filename="../../src/View/MainWindow.cpp" line="347"/>
         <source>Activer/désactiver les &amp;indices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="260"/>
+        <location filename="../../src/View/MainWindow.cpp" line="286"/>
         <source>Ctrl+H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="322"/>
+        <location filename="../../src/View/MainWindow.cpp" line="348"/>
         <source>Afficher ou masquer les indices de cases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="323"/>
+        <location filename="../../src/View/MainWindow.cpp" line="349"/>
         <source>&amp;Guide du joueur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="266"/>
+        <location filename="../../src/View/MainWindow.cpp" line="292"/>
         <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="324"/>
+        <location filename="../../src/View/MainWindow.cpp" line="350"/>
         <source>Afficher l&apos;aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="304"/>
+        <location filename="../../src/View/MainWindow.cpp" line="330"/>
         <source>&amp;Langue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="284"/>
+        <location filename="../../src/View/MainWindow.cpp" line="310"/>
         <source>Barre d&apos;outils</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="344"/>
+        <location filename="../../src/View/MainWindow.cpp" line="369"/>
+        <source>Changer de langue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/View/MainWindow.cpp" line="372"/>
         <source>Prêt — Sélectionnez une case puis un chiffre.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="361"/>
+        <location filename="../../src/View/MainWindow.cpp" line="390"/>
         <source>Nouvelle grille chargée.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="368"/>
+        <location filename="../../src/View/MainWindow.cpp" line="397"/>
         <source>Ouvrir une grille Sudoku</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="370"/>
+        <location filename="../../src/View/MainWindow.cpp" line="399"/>
         <source>Fichiers Sudoku (*.txt *.sdk);;Tous les fichiers (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="376"/>
+        <location filename="../../src/View/MainWindow.cpp" line="405"/>
         <source>Grille chargée depuis %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="385"/>
+        <location filename="../../src/View/MainWindow.cpp" line="414"/>
         <source>Nouvelle grille chargée : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="391"/>
+        <location filename="../../src/View/MainWindow.cpp" line="420"/>
         <source>Annulation effectuée.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="397"/>
+        <location filename="../../src/View/MainWindow.cpp" line="426"/>
         <source>Rétablissement effectué.</source>
         <translation type="unfinished"></translation>
     </message>

@@ -26,6 +26,10 @@ public:
     QSet<int> getCandidates(int row, int col) const;
     void updateAllCandidates();
 
+    // Hints
+    void setHintsEnabled(bool enabled);
+    bool hintsEnabled() const;
+
     // Grid management
     void loadGrid(const int grid[9][9]);
     void clearGrid();
@@ -41,6 +45,7 @@ private:
     int  m_grid[9][9];
     bool m_fixed[9][9];
     QSet<int> m_candidates[9][9];
+    bool m_hintsEnabled;
 
     void computeCandidates(int row, int col);
 };

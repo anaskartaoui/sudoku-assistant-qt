@@ -119,6 +119,7 @@ HelpDialog::HelpDialog(QWidget *parent)
     addShortcut("1 - 9",                   tr("Entrer un chiffre dans la case"));
     addShortcut("Suppr / Backspace",       tr("Effacer la case sélectionnée"));
     addShortcut("Echap",                   tr("Désélectionner la case"));
+    addShortcut("Space",                   tr("Mettre le jeu en pause / reprendre"));
     addShortcut("Ctrl+Z",                  tr("Annuler la dernière action"));
     addShortcut("Ctrl+Y",                  tr("Rétablir"));
     addShortcut("Ctrl+N",                  tr("Nouvelle grille"));

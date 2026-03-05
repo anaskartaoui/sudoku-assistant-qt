@@ -5,7 +5,7 @@
 #include <QRandomGenerator>
 
 SudokuController::SudokuController(QObject *parent)
-    : QObject(parent), m_hintsEnabled(true)
+    : QObject(parent)
 {
     m_model = new SudokuModel(this);
 }
@@ -24,23 +24,22 @@ void SudokuController::loadRandomGrid(const QString &difficulty)
 
     QTextStream in(&file);
 
-    int count = 0;
-    in >> count;
-    if (count <= 0) return;
+    int N = in.readLine().trimmed().toInt();
+    if (N < 1) return;
 
-    int index = QRandomGenerator::global()->bounded(count);
+    int chosen = QRandomGenerator::global()->bounded(N) + 1;
 
-    for (int i = 0; i <= index; ++i) {
-        QString line;
-        do { line = in.readLine(); } while (line.trimmed().isEmpty());
-        if (i == index) {
-            int grid[9][9] = {};
-            for (int r = 0; r < 9; ++r)
-                for (int c = 0; c < 9; ++c)
-                    grid[r][c] = line[r * 9 + c].digitValue();
-            m_model->loadGrid(grid);
-        }
-    }
+    QString line;
+    for (int i = 0; i < chosen; ++i)
+        line = in.readLine();
+
+    if (line.length() != 81) return;
+
+    m_model->clearGrid();
+    int grid[9][9] = {};
+    for (int i = 0; i < 81; ++i)
+        grid[i / 9][i % 9] = line[i].digitValue();
+    m_model->loadGrid(grid);
 
     m_undoStack.clear();
     m_redoStack.clear();
@@ -51,12 +50,21 @@ void SudokuController::loadGridFromFile(const QString &path)
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
         return;
-    int grid[9][9] = {};
+
     QTextStream in(&file);
-    for (int r = 0; r < 9; ++r)
-        for (int c = 0; c < 9; ++c)
-            in >> grid[r][c];
+
+    int N = in.readLine().trimmed().toInt();
+    if (N < 1) return;
+
+    QString line = in.readLine();
+    if (line.length() != 81) return;
+
+    m_model->clearGrid();
+    int grid[9][9] = {};
+    for (int i = 0; i < 81; ++i)
+        grid[i / 9][i % 9] = line[i].digitValue();
     m_model->loadGrid(grid);
+
     m_undoStack.clear();
     m_redoStack.clear();
 }
@@ -93,5 +101,6 @@ void SudokuController::redo()
 
 void SudokuController::toggleHints()
 {
-    m_hintsEnabled = !m_hintsEnabled;
+    m_model->setHintsEnabled(!m_model->hintsEnabled());
+    m_model->updateAllCandidates();
 }

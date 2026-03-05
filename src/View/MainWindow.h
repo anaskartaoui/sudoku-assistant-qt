@@ -49,9 +49,13 @@ private:
     QLabel              *m_timerLabel;
     QPushButton         *m_pauseBtn;
     QPushButton         *m_restartBtn;
+    QPushButton         *m_hintsBtn;
+    QPushButton         *m_helpBtn;
+    QPushButton         *m_langBtn;
     QTimer              *m_timer;
     int                  m_seconds;
     bool                 m_paused;
+    QString              m_currentLang;
 
     // Difficulty buttons (for retranslation)
     QList<QPushButton*>  m_difficultyButtons;

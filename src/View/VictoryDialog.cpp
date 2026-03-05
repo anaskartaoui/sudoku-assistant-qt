@@ -58,10 +58,7 @@ VictoryDialog::VictoryDialog(int seconds, QWidget *parent)
     btnLayout->setSpacing(12);
 
     QPushButton *newGameBtn = new QPushButton(tr("Nouvelle partie"), this);
-    connect(newGameBtn, &QPushButton::clicked, this, [this]() {
-        emit newGameRequested();
-        accept();
-    });
+    connect(newGameBtn, &QPushButton::clicked, this, &VictoryDialog::newGameRequested);
 
     QPushButton *closeBtn = new QPushButton(tr("Fermer"), this);
     closeBtn->setObjectName("closeBtn");

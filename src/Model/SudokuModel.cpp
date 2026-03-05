@@ -1,9 +1,19 @@
 #include "SudokuModel.h"
 
 SudokuModel::SudokuModel(QObject *parent)
-    : QObject(parent)
+    : QObject(parent), m_hintsEnabled(true)
 {
     clearGrid();
+}
+
+void SudokuModel::setHintsEnabled(bool enabled)
+{
+    m_hintsEnabled = enabled;
+}
+
+bool SudokuModel::hintsEnabled() const
+{
+    return m_hintsEnabled;
 }
 
 int SudokuModel::getValue(int row, int col) const

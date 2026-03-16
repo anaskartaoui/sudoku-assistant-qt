@@ -1,6 +1,6 @@
 # Sudoku Assistant
 
-Application d'assistance au Sudoku développée en C++17 avec le framework Qt6, suivant le patron architectural MVP (Modèle-Vue-Présentateur). Elle offre une interface graphique complète permettant de jouer, d'analyser et de résoudre des grilles de Sudoku avec des aides visuelles en temps réel, un chronomètre, un système d'annulation, et un support bilingue français/anglais.
+Application d'assistance au Sudoku développée en C++17 avec le framework Qt6, suivant le patron architectural MVC (Modèle-Vue-Contrôleur). Elle offre une interface graphique complète permettant de jouer, d'analyser et de résoudre des grilles de Sudoku avec des aides visuelles en temps réel, un chronomètre, un système d'annulation, et un support bilingue français/anglais.
 
 ---
 
@@ -66,13 +66,12 @@ https://github.com/user-attachments/assets/50759301-e5bc-4b9b-9944-008e9b7ce915
 
 ## Architecture
 
-Le projet suit le patron **MVP (Modèle-Vue-Présentateur)**, une variante du MVC adaptée aux interfaces graphiques. La séparation des responsabilités est stricte : le Modèle ignore totalement la Vue, et la Vue ne manipule jamais les données directement.
+Le projet suit le patron **MVC (Modèle-Vue-Contrôleur)**. La Vue observe directement le Modèle via les signaux Qt (patron Observateur) et délègue les actions utilisateur au Contrôleur. Le Contrôleur met à jour le Modèle, qui notifie la Vue en émettant des signaux.
 
-```
-Vue  <---signals/slots--->  Contrôleur  <---appels directs--->  Modèle
- |                                                                  |
- +------------------signals/slots (Observer)------------------------+
-```
+<p align="center">
+  <img src="docs/mvc.png" alt="Architecture MVC" width="900"/>
+</p>
+
 
 ### Modèle (`src/Model/`)
 
@@ -433,6 +432,6 @@ Exemple pour un fichier contenant deux grilles :
 
 ## Contexte académique
 
-Ce projet a été réalisé dans le cadre d'un cours de génie logiciel et d'interfaces graphiques en deuxième année à l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVP, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
+Ce projet a été réalisé dans le cadre d'un cours de génie logiciel et d'interfaces graphiques en deuxième année à l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVC, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
 
 - **Auteur** : Anas Kartaoui

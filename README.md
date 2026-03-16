@@ -6,7 +6,7 @@ Application d'assistance au Sudoku développée en C++17 avec le framework Qt6, 
 
 ## Demo
 
-https://github.com/user-attachments/assets/50759301-e5bc-4b9b-9944-008e9b7ce915
+https://github.com/user-attachments/assets/db8e208a-4faf-4f73-9cde-45ee323951b3
 
 ---
 
@@ -421,4 +421,4 @@ Exemple pour un fichier contenant deux grilles :
 
 Ce projet a été réalisé dans le cadre d'un cours de conception d'interfaces graphiques en deuxième année à l'ENSI-CAEN (M1). Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVC, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
 
-- **Auteur** : Anas Kartaoui
+- **Auteurs** : Anas Kartaoui - Nouhad Arroub

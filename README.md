@@ -69,7 +69,7 @@ https://github.com/user-attachments/assets/50759301-e5bc-4b9b-9944-008e9b7ce915
 Le projet suit le patron **MVC (Modèle-Vue-Contrôleur)**. La Vue observe directement le Modèle via les signaux Qt (patron Observateur) et délègue les actions utilisateur au Contrôleur. Le Contrôleur met à jour le Modèle, qui notifie la Vue en émettant des signaux.
 
 <p align="center">
-  <img src="docs/mvc.png" alt="Architecture MVC" width="900"/>
+  <img src="resources/images/mvc.png" alt="Architecture MVC" width="900"/>
 </p>
 
 

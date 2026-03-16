@@ -15,7 +15,7 @@ https://github.com/user-attachments/assets/db8e208a-4faf-4f73-9cde-45ee323951b3
 ### Gestion des grilles
 
 - **Chargement par difficulté** : quatre niveaux disponibles (Facile, Moyen, Difficile, Insane), chacun associé à un fichier de grilles embarqué dans les ressources. Une grille est tirée aléatoirement dans le fichier correspondant à chaque nouvelle partie.
-- **Chargement depuis un fichier** : ouverture de grilles personnalisées au format texte (`.txt`, `.sdk`) via le menu Fichier > Ouvrir grille ou le raccourci Ctrl+O.
+- **Chargement depuis un fichier** : ouverture de grilles personnalisées au format texte (`.txt`, `.sdk`) via le menu Fichier > Ouvrir grille ou le raccourci Ctrl+O. Une grille est tirée aléatoirement parmi celles contenues dans le fichier.
 - **Réinitialisation** : le bouton de redémarrage (↺) recharge une nouvelle grille de la même difficulté et remet le chronomètre à zéro.
 
 ### Saisie et navigation
@@ -233,7 +233,7 @@ La connexion dans `MainWindow::onGridSolved()` utilise `Qt::QueuedConnection` po
 
 Intermédiaire entre la Vue et le Modèle. Responsabilités :
 
-- Chargement des grilles (`loadDefaultGrid`, `loadRandomGrid`, `loadGridFromFile`). Le chargement aléatoire lit le nombre de grilles en première ligne du fichier, tire un index au hasard avec `QRandomGenerator`, et parse la ligne de 81 caractères correspondante.
+- Chargement des grilles (`loadDefaultGrid`, `loadRandomGrid`, `loadGridFromFile`). Les trois fonctions lisent le nombre de grilles en première ligne du fichier, tirent un index au hasard avec `QRandomGenerator`, et parsent la ligne de 81 caractères correspondante.
 - Écriture des valeurs (`setCellValue`) avec empilement de l'état précédent dans la pile d'annulation.
 - Gestion de l'historique d'annulation/rétablissement via deux `QStack<CellState>`. Chaque `CellState` est un `QPair<QPair<int,int>, int>` encodant la position et l'ancienne valeur.
 - Délégation du toggle des indices au Modèle (`toggleHints`) et déclenchement d'un recalcul complet des candidats pour forcer le rafraîchissement de la Vue.
@@ -278,11 +278,10 @@ Le système de traduction repose sur le pipeline standard de Qt :
 2. `lupdate sudoku-assistant.pro` extrait les nouvelles chaînes et met à jour les fichiers `.ts` (`sudoku_fr.ts`, `sudoku_en.ts`) sans écraser les traductions existantes.
 3. Les traductions sont saisies dans les fichiers `.ts` (XML) directement ou via Qt Linguist.
 4. `lrelease sudoku-assistant.pro` compile les `.ts` en fichiers binaires `.qm` embarqués dans `resources.qrc`.
-5. Au démarrage, `main.cpp` charge le fichier `.qm` correspondant à la locale système via un `QTranslator` statique.
-6. À chaque changement de langue, `onLanguageChanged(lang)` :
+5. À chaque changement de langue, `onLanguageChanged(lang)` :
    - Met à jour `m_currentLang`.
    - Supprime l'ancien traducteur et installe le nouveau via `QCoreApplication::installTranslator()`.
-   - Appelle `retranslateUi()` qui met à jour en une passe tous les textes des widgets membres.
+   - Appelle `retranslateUi()` sur `MainWindow` et `NumPad`, qui met à jour en une passe tous les textes et infobulles des widgets membres.
 
 Cette approche évite tout redémarrage de l'application et préserve l'état courant du jeu (grille, chronomètre, score).
 
@@ -304,7 +303,7 @@ Le système d'indices couvre deux aides visuelles : les pencil marks et le surli
 ```
 sudoku-assistant-qt/
 ├── src/
-│   ├── main.cpp                        Point d'entrée, chargement police et traducteur
+│   ├── main.cpp                        Point d'entrée, chargement de la police
 │   ├── Model/
 │   │   ├── SudokuModel.h / .cpp        Grille, candidats, hints, signaux
 │   │   ├── SudokuSolver.h / .cpp       Algorithme de résolution par backtracking
@@ -348,8 +347,10 @@ cd sudoku-assistant-qt
 # Générer le Makefile
 qmake sudoku-assistant.pro
 
-# Compiler
+# Compiler (Linux)
 make -j$(nproc)
+# Compiler (macOS)
+make -j$(sysctl -n hw.ncpu)
 
 # Lancer l'application
 ./build/sudoku-assistant

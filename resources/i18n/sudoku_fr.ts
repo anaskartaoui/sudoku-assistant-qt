@@ -108,207 +108,213 @@
     <name>MainWindow</name>
     <message>
         <location filename="../../src/View/MainWindow.cpp" line="28"/>
-        <location filename="../../src/View/MainWindow.cpp" line="324"/>
+        <location filename="../../src/View/MainWindow.cpp" line="337"/>
         <source>Sudoku Assistant</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="353"/>
+        <location filename="../../src/View/MainWindow.cpp" line="366"/>
         <source>Facile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="353"/>
+        <location filename="../../src/View/MainWindow.cpp" line="366"/>
         <source>Moyen</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="353"/>
+        <location filename="../../src/View/MainWindow.cpp" line="366"/>
         <source>Difficile</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="353"/>
+        <location filename="../../src/View/MainWindow.cpp" line="366"/>
         <source>Insane</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="355"/>
+        <location filename="../../src/View/MainWindow.cpp" line="368"/>
         <source>Grilles simples, idéales pour débuter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="356"/>
+        <location filename="../../src/View/MainWindow.cpp" line="369"/>
         <source>Grilles de difficulté intermédiaire</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="357"/>
+        <location filename="../../src/View/MainWindow.cpp" line="370"/>
         <source>Grilles complexes pour joueurs expérimentés</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="358"/>
+        <location filename="../../src/View/MainWindow.cpp" line="371"/>
         <source>Grilles extrêmement difficiles</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="366"/>
+        <location filename="../../src/View/MainWindow.cpp" line="379"/>
         <source>Mettre le jeu en pause</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="367"/>
+        <location filename="../../src/View/MainWindow.cpp" line="380"/>
         <source>Recommencer la partie depuis le début</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="327"/>
+        <location filename="../../src/View/MainWindow.cpp" line="340"/>
         <source>&amp;Fichier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="333"/>
+        <location filename="../../src/View/MainWindow.cpp" line="346"/>
         <source>&amp;Nouvelle grille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="334"/>
+        <location filename="../../src/View/MainWindow.cpp" line="347"/>
         <source>Charger une nouvelle grille</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="335"/>
+        <location filename="../../src/View/MainWindow.cpp" line="348"/>
         <source>&amp;Ouvrir grille...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="336"/>
+        <location filename="../../src/View/MainWindow.cpp" line="349"/>
         <source>Ouvrir une grille depuis un fichier</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="337"/>
+        <location filename="../../src/View/MainWindow.cpp" line="350"/>
         <source>&amp;Quitter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="338"/>
+        <location filename="../../src/View/MainWindow.cpp" line="351"/>
         <source>Quitter l&apos;application</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="328"/>
+        <location filename="../../src/View/MainWindow.cpp" line="341"/>
         <source>&amp;Édition</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="341"/>
+        <location filename="../../src/View/MainWindow.cpp" line="354"/>
         <source>&amp;Annuler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="342"/>
+        <location filename="../../src/View/MainWindow.cpp" line="355"/>
         <source>Annuler la dernière action</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="343"/>
+        <location filename="../../src/View/MainWindow.cpp" line="356"/>
         <source>&amp;Rétablir</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="344"/>
+        <location filename="../../src/View/MainWindow.cpp" line="357"/>
         <source>Rétablir la dernière action annulée</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="329"/>
+        <location filename="../../src/View/MainWindow.cpp" line="342"/>
         <source>&amp;Aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="347"/>
+        <location filename="../../src/View/MainWindow.cpp" line="360"/>
         <source>Activer/désactiver les &amp;indices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="286"/>
+        <location filename="../../src/View/MainWindow.cpp" line="299"/>
         <source>Ctrl+H</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="348"/>
+        <location filename="../../src/View/MainWindow.cpp" line="361"/>
         <source>Afficher ou masquer les indices de cases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="349"/>
+        <location filename="../../src/View/MainWindow.cpp" line="362"/>
         <source>&amp;Guide du joueur</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="292"/>
+        <location filename="../../src/View/MainWindow.cpp" line="305"/>
         <source>F1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="350"/>
+        <location filename="../../src/View/MainWindow.cpp" line="363"/>
+        <location filename="../../src/View/MainWindow.cpp" line="382"/>
         <source>Afficher l&apos;aide</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="330"/>
+        <location filename="../../src/View/MainWindow.cpp" line="343"/>
         <source>&amp;Langue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="310"/>
+        <location filename="../../src/View/MainWindow.cpp" line="323"/>
         <source>Barre d&apos;outils</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="369"/>
+        <location filename="../../src/View/MainWindow.cpp" line="381"/>
+        <source>Activer/désactiver les indices</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../src/View/MainWindow.cpp" line="384"/>
         <source>Changer de langue</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="372"/>
+        <location filename="../../src/View/MainWindow.cpp" line="387"/>
         <source>Prêt — Sélectionnez une case puis un chiffre.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="390"/>
+        <location filename="../../src/View/MainWindow.cpp" line="405"/>
         <source>Nouvelle grille chargée.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="397"/>
+        <location filename="../../src/View/MainWindow.cpp" line="412"/>
         <source>Ouvrir une grille Sudoku</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="399"/>
+        <location filename="../../src/View/MainWindow.cpp" line="414"/>
         <source>Fichiers Sudoku (*.txt *.sdk);;Tous les fichiers (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="405"/>
+        <location filename="../../src/View/MainWindow.cpp" line="420"/>
         <source>Grille chargée depuis %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="414"/>
+        <location filename="../../src/View/MainWindow.cpp" line="429"/>
         <source>Nouvelle grille chargée : %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="420"/>
+        <location filename="../../src/View/MainWindow.cpp" line="435"/>
         <source>Annulation effectuée.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/MainWindow.cpp" line="426"/>
+        <location filename="../../src/View/MainWindow.cpp" line="441"/>
         <source>Rétablissement effectué.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -351,7 +357,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../src/View/VictoryDialog.cpp" line="66"/>
+        <location filename="../../src/View/VictoryDialog.cpp" line="63"/>
         <source>Fermer</source>
         <translation type="unfinished"></translation>
     </message>

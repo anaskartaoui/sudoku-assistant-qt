@@ -338,19 +338,6 @@ sudoku-assistant-qt/
 
 ---
 
-## Prérequis
-
-| Outil | Version minimale |
-|---|---|
-| Qt | 6.0 |
-| Compilateur C++ | C++17 (GCC, Clang ou MSVC) |
-| qmake | Fourni avec Qt6 |
-| make | GNU Make ou équivalent |
-
-Qt6 doit être installé et le répertoire `bin` de Qt doit être accessible dans le `PATH` système.
-
----
-
 ## Compilation et exécution
 
 ```bash
@@ -432,6 +419,6 @@ Exemple pour un fichier contenant deux grilles :
 
 ## Contexte académique
 
-Ce projet a été réalisé dans le cadre d'un cours de génie logiciel et d'interfaces graphiques en deuxième année à l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVC, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
+Ce projet a été réalisé dans le cadre d'un cours de conception d'interfaces graphiques en deuxième année à l'ENSI-CAEN (M1). Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVC, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
 
 - **Auteur** : Anas Kartaoui

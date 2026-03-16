@@ -15,6 +15,7 @@ class NumPad : public QWidget
 
 public:
     explicit NumPad(QWidget *parent = nullptr);
+    void retranslateUi();
 
 signals:
     void numberClicked(int value);  // 0 = clear
@@ -22,6 +23,9 @@ signals:
 private:
     void setupButtons();
     QPushButton* createButton(const QString &text, int value);
+
+    QPushButton* m_digitButtons[9];
+    QPushButton* m_clearBtn;
 };
 
 #endif // NUMPAD_H

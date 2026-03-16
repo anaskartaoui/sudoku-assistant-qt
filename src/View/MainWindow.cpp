@@ -383,6 +383,9 @@ void MainWindow::retranslateUi()
     m_langBtn->setText(m_currentLang.toUpper());
     m_langBtn->setToolTip(tr("Changer de langue"));
 
+    // NumPad
+    m_numPad->retranslateUi();
+
     // Status bar
     statusBar()->showMessage(tr("Prêt — Sélectionnez une case puis un chiffre."));
 }

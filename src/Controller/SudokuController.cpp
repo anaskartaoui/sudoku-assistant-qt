@@ -56,7 +56,12 @@ void SudokuController::loadGridFromFile(const QString &path)
     int N = in.readLine().trimmed().toInt();
     if (N < 1) return;
 
-    QString line = in.readLine();
+    int chosen = QRandomGenerator::global()->bounded(N) + 1;
+
+    QString line;
+    for (int i = 0; i < chosen; ++i)
+        line = in.readLine();
+
     if (line.length() != 81) return;
 
     m_model->clearGrid();

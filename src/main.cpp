@@ -1,6 +1,4 @@
 #include <QApplication>
-#include <QTranslator>
-#include <QLocale>
 #include <QFontDatabase>
 #include "View/MainWindow.h"
 
@@ -19,15 +17,7 @@ int main(int argc, char *argv[])
     QFont appFont("Nunito", 13);
     app.setFont(appFont);
 
-    // Load translation matching the system locale
-    static QTranslator translator;
-    const QStringList uiLanguages = QLocale::system().uiLanguages();
-    for (const QString &locale : uiLanguages) {
-        if (translator.load(":/i18n/sudoku_" + QLocale(locale).name() + ".qm")) {
-            app.installTranslator(&translator);
-            break;
-        }
-    }
+    // Language is managed at runtime by MainWindow::onLanguageChanged.
 
     MainWindow window;
     window.show();

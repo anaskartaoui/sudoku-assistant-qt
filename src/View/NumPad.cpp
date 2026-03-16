@@ -15,17 +15,18 @@ void NumPad::setupButtons()
 
     for (int i = 1; i <= 5; ++i) {
         QPushButton *btn = createButton(QString::number(i), i);
-        btn->setToolTip(tr("Insérer le chiffre %1 dans la case sélectionnée").arg(i));
+        m_digitButtons[i - 1] = btn;
         layout->addWidget(btn, 0, i - 1);
     }
 
     for (int i = 6; i <= 9; ++i) {
         QPushButton *btn = createButton(QString::number(i), i);
-        btn->setToolTip(tr("Insérer le chiffre %1 dans la case sélectionnée").arg(i));
+        m_digitButtons[i - 1] = btn;
         layout->addWidget(btn, 1, i - 6);
     }
 
-    QPushButton *clearBtn = createButton("✕", 0);
+    m_clearBtn = createButton("✕", 0);
+    QPushButton *clearBtn = m_clearBtn;
     clearBtn->setToolTip(tr("Effacer la valeur de la case sélectionnée"));
     clearBtn->setStyleSheet(
         "QPushButton {"
@@ -41,7 +42,15 @@ void NumPad::setupButtons()
         );
     layout->addWidget(clearBtn, 1, 4);
 
+    retranslateUi();
     setLayout(layout);
+}
+
+void NumPad::retranslateUi()
+{
+    for (int i = 0; i < 9; ++i)
+        m_digitButtons[i]->setToolTip(tr("Insérer le chiffre %1 dans la case sélectionnée").arg(i + 1));
+    m_clearBtn->setToolTip(tr("Effacer la valeur de la case sélectionnée"));
 }
 
 QPushButton* NumPad::createButton(const QString &text, int value)

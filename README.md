@@ -1,6 +1,6 @@
 # Sudoku Assistant
 
-Application d'assistance au Sudoku developpee en C++17 avec le framework Qt6, suivant le patron architectural MVP (Modele-Vue-Presentateur). Elle offre une interface graphique complete permettant de jouer, d'analyser et de resoudre des grilles de Sudoku avec des aides visuelles en temps reel, un chronometre, un systeme d'annulation, et un support bilingue francais/anglais.
+Application d'assistance au Sudoku développée en C++17 avec le framework Qt6, suivant le patron architectural MVP (Modèle-Vue-Présentateur). Elle offre une interface graphique complète permettant de jouer, d'analyser et de résoudre des grilles de Sudoku avec des aides visuelles en temps réel, un chronomètre, un système d'annulation, et un support bilingue français/anglais.
 
 ---
 
@@ -10,242 +10,242 @@ https://github.com/user-attachments/assets/50759301-e5bc-4b9b-9944-008e9b7ce915
 
 ---
 
-## Fonctionnalites
+## Fonctionnalités
 
 ### Gestion des grilles
 
-- **Chargement par difficulte** : quatre niveaux disponibles (Facile, Moyen, Difficile, Insane), chacun associe a un fichier de grilles embarque dans les ressources. Une grille est tiree aleatoirement dans le fichier correspondant a chaque nouvelle partie.
-- **Chargement depuis un fichier** : ouverture de grilles personnalisees au format texte (`.txt`, `.sdk`) via le menu Fichier > Ouvrir grille ou le raccourci Ctrl+O.
-- **Reinitialisation** : le bouton de redemarrage (↺) recharge une nouvelle grille de la meme difficulte et remet le chronometre a zero.
+- **Chargement par difficulté** : quatre niveaux disponibles (Facile, Moyen, Difficile, Insane), chacun associé à un fichier de grilles embarqué dans les ressources. Une grille est tirée aléatoirement dans le fichier correspondant à chaque nouvelle partie.
+- **Chargement depuis un fichier** : ouverture de grilles personnalisées au format texte (`.txt`, `.sdk`) via le menu Fichier > Ouvrir grille ou le raccourci Ctrl+O.
+- **Réinitialisation** : le bouton de redémarrage (↺) recharge une nouvelle grille de la même difficulté et remet le chronomètre à zéro.
 
 ### Saisie et navigation
 
-- **Selection de cellule** : clic souris ou touches directionnelles. La cellule selectionnee est mise en evidence en bleu, et toute la ligne, la colonne et le bloc 3x3 correspondants sont automatiquement surlignees en jaune pale.
-- **Saisie de valeurs** : chiffres 1 a 9 via le clavier ou le pave numerique virtuel. Les cellules fixes (donnees initiales) sont protegees en ecriture.
-- **Effacement** : touche Suppr ou Retour arriere pour vider la cellule selectionnee.
-- **Deselection** : touche Echap pour deselectionner la cellule active et retirer le surlignage.
+- **Sélection de cellule** : clic souris ou touches directionnelles. La cellule sélectionnée est mise en évidence en bleu, et toute la ligne, la colonne et le bloc 3x3 correspondants sont automatiquement surlignés en jaune pâle.
+- **Saisie de valeurs** : chiffres 1 à 9 via le clavier ou le pavé numérique virtuel. Les cellules fixes (données initiales) sont protégées en écriture.
+- **Effacement** : touche Suppr ou Retour arrière pour vider la cellule sélectionnée.
+- **Désélection** : touche Échap pour désélectionner la cellule active et retirer le surlignage.
 
 ### Aides visuelles (indices)
 
-- **Pencil marks** : lorsqu'une cellule vide est selectionnee, les candidats possibles (valeurs non encore presentes dans la meme ligne, colonne ou bloc) sont affiches en petits chiffres dans une grille 3x3 a l'interieur de la cellule.
-- **Detection des naked singles** : les cellules n'ayant qu'une seule valeur candidate possible sont mises en evidence en vert clair automatiquement, signalant au joueur une case facilement resolvable.
-- **Detection des contradictions** : toute cellule dont la valeur entre en conflit avec une autre cellule sur la meme ligne, colonne ou bloc est immediatement coloree en rouge. Les cases vides sans aucun candidat valide sont egalement signalee.
-- **Activation/desactivation des indices** : un bouton dedie "H" dans la barre du chronometre (et son equivalent dans le menu Aide > Activer/desactiver les indices ou Ctrl+H) permet de masquer ou de restaurer instantanement les pencil marks et le surlignage des naked singles, sans affecter la detection des contradictions.
+- **Pencil marks** : lorsqu'une cellule vide est sélectionnée, les candidats possibles (valeurs non encore présentes dans la même ligne, colonne ou bloc) sont affichés en petits chiffres dans une grille 3x3 à l'intérieur de la cellule.
+- **Détection des naked singles** : les cellules n'ayant qu'une seule valeur candidate possible sont mises en évidence en vert clair automatiquement, signalant au joueur une case facilement résolvable.
+- **Détection des contradictions** : toute cellule dont la valeur entre en conflit avec une autre cellule sur la même ligne, colonne ou bloc est immédiatement colorée en rouge. Les cases vides sans aucun candidat valide sont également signalées.
+- **Activation/désactivation des indices** : un bouton dédié "H" dans la barre du chronomètre (et son équivalent dans le menu Aide > Activer/désactiver les indices ou Ctrl+H) permet de masquer ou de restaurer instantanément les pencil marks et le surlignage des naked singles, sans affecter la détection des contradictions.
 
-### Chronometre et pause
+### Chronomètre et pause
 
-- **Chronometre** : un compteur MM:SS demarrant automatiquement au chargement de chaque nouvelle grille, affiche en permanence dans la barre sous la grille.
-- **Pause** : le bouton ⏸ ou la touche Espace suspend le chronometre et affiche un overlay semi-transparent masquant la grille, rendant le jeu invisible pour eviter les regards indesirables. Une pression supplementaire reprend la partie.
-- **Victoire** : a la resolution complete de la grille, le chronometre s'arrete automatiquement et une boite de dialogue de felicitations s'ouvre, affichant le temps total en MM:SS, avec les options Nouvelle partie (charge une nouvelle grille et ferme le dialogue) et Fermer.
+- **Chronomètre** : un compteur MM:SS démarrant automatiquement au chargement de chaque nouvelle grille, affiché en permanence dans la barre sous la grille.
+- **Pause** : le bouton ⏸ ou la touche Espace suspend le chronomètre et affiche un overlay semi-transparent masquant la grille, rendant le jeu invisible pour éviter les regards indésirables. Une pression supplémentaire reprend la partie.
+- **Victoire** : à la résolution complète de la grille, le chronomètre s'arrête automatiquement et une boîte de dialogue de félicitations s'ouvre, affichant le temps total en MM:SS, avec les options Nouvelle partie (charge une nouvelle grille et ferme le dialogue) et Fermer.
 
-### Annulation et retablissement
+### Annulation et rétablissement
 
-- **Annulation** : Ctrl+Z annule la derniere saisie et restaure la valeur precedente de la cellule modifiee. L'historique couvre toutes les modifications effectuees depuis le chargement de la grille.
-- **Retablissement** : Ctrl+Y (ou Ctrl+Shift+Z selon la plateforme) retablit la derniere action annulee.
-- Les piles d'annulation et de retablissement sont automatiquement effacees au chargement d'une nouvelle grille.
+- **Annulation** : Ctrl+Z annule la dernière saisie et restaure la valeur précédente de la cellule modifiée. L'historique couvre toutes les modifications effectuées depuis le chargement de la grille.
+- **Rétablissement** : Ctrl+Y (ou Ctrl+Shift+Z selon la plateforme) rétablit la dernière action annulée.
+- Les piles d'annulation et de rétablissement sont automatiquement effacées au chargement d'une nouvelle grille.
 
 ### Interface et ergonomie
 
-- **Barre de difficulte** : quatre boutons a selection exclusive (Facile, Moyen, Difficile, Insane) avec le niveau actif mis en evidence. Chaque bouton porte une infobulle descriptive.
-- **Barre de controle (chronometre)** : affiche le temps ecoule et regroupe les boutons ⏸ (pause), ↺ (redemarrer), H (indices), ? (aide) et FR/EN (langue).
-- **Pave numerique virtuel** : widget NumPad en bas de fenetre permettant la saisie des chiffres 1 a 9 et l'effacement a la souris, avec infobulles.
-- **Barre de menus** : menus Fichier, Edition, Aide, chacun avec actions, raccourcis clavier et separateurs. Le menu Aide contient egalement le sous-menu Langue.
-- **Barre d'etat** : messages contextuels informant du resultat de chaque action (grille chargee, annulation effectuee, etc.).
-- **Infobulles** : tous les elements interactifs (boutons, actions de menu) disposent d'une infobulle descriptive au survol, avec fond blanc et texte sombre.
-- **Police Nunito** : interface typographiee avec la police Nunito, embarquee directement dans les ressources Qt (`.qrc`) pour un rendu identique sur toutes les plateformes.
-- **Guide du joueur** : accessible via F1, le bouton ? ou le menu Aide. Presente la legende des couleurs avec des echantillons visuels, et un tableau complet des raccourcis clavier.
+- **Barre de difficulté** : quatre boutons à sélection exclusive (Facile, Moyen, Difficile, Insane) avec le niveau actif mis en évidence. Chaque bouton porte une infobulle descriptive.
+- **Barre de contrôle (chronomètre)** : affiche le temps écoulé et regroupe les boutons ⏸ (pause), ↺ (redémarrer), H (indices), ? (aide) et FR/EN (langue).
+- **Pavé numérique virtuel** : widget NumPad en bas de fenêtre permettant la saisie des chiffres 1 à 9 et l'effacement à la souris, avec infobulles.
+- **Barre de menus** : menus Fichier, Édition, Aide, chacun avec actions, raccourcis clavier et séparateurs. Le menu Aide contient également le sous-menu Langue.
+- **Barre d'état** : messages contextuels informant du résultat de chaque action (grille chargée, annulation effectuée, etc.).
+- **Infobulles** : tous les éléments interactifs (boutons, actions de menu) disposent d'une infobulle descriptive au survol, avec fond blanc et texte sombre.
+- **Police Nunito** : interface typographiée avec la police Nunito, embarquée directement dans les ressources Qt (`.qrc`) pour un rendu identique sur toutes les plateformes.
+- **Guide du joueur** : accessible via F1, le bouton ? ou le menu Aide. Présente la légende des couleurs avec des échantillons visuels, et un tableau complet des raccourcis clavier.
 
 ### Internationalisation (FR / EN)
 
-- L'application supporte le francais et l'anglais sans redemarrage.
-- Le changement de langue est accessible via le bouton FR/EN dans la barre de controle, ou via le menu Aide > Langue.
-- La traduction repose sur le pipeline Qt : `lupdate` extrait les chaines depuis les appels `tr()`, `Qt Linguist` permet de les traduire dans les fichiers `.ts`, et `lrelease` compile ces fichiers en `.qm` binaires embarques dans les ressources.
-- Le changement de langue en cours d'execution est gere par `retranslateUi()`, qui met a jour tous les textes (menus, boutons, infobulles, barre d'etat) sans reconstruire les widgets ni redemarrer l'application.
+- L'application supporte le français et l'anglais sans redémarrage.
+- Le changement de langue est accessible via le bouton FR/EN dans la barre de contrôle, ou via le menu Aide > Langue.
+- La traduction repose sur le pipeline Qt : `lupdate` extrait les chaînes depuis les appels `tr()`, `Qt Linguist` permet de les traduire dans les fichiers `.ts`, et `lrelease` compile ces fichiers en `.qm` binaires embarqués dans les ressources.
+- Le changement de langue en cours d'exécution est géré par `retranslateUi()`, qui met à jour tous les textes (menus, boutons, infobulles, barre d'état) sans reconstruire les widgets ni redémarrer l'application.
 
 ---
 
 ## Architecture
 
-Le projet suit le patron **MVP (Modele-Vue-Presentateur)**, une variante du MVC adaptee aux interfaces graphiques. La separation des responsabilites est stricte : le Modele ignore totalement la Vue, et la Vue ne manipule jamais les donnees directement.
+Le projet suit le patron **MVP (Modèle-Vue-Présentateur)**, une variante du MVC adaptée aux interfaces graphiques. La séparation des responsabilités est stricte : le Modèle ignore totalement la Vue, et la Vue ne manipule jamais les données directement.
 
 ```
-Vue  <---signals/slots--->  Controleur  <---appels directs--->  Modele
+Vue  <---signals/slots--->  Contrôleur  <---appels directs--->  Modèle
  |                                                                  |
  +------------------signals/slots (Observer)------------------------+
 ```
 
-### Modele (`src/Model/`)
+### Modèle (`src/Model/`)
 
-Encapsule l'etat complet du jeu et la logique metier. Ne depend d'aucun composant graphique.
+Encapsule l'état complet du jeu et la logique métier. Ne dépend d'aucun composant graphique.
 
 #### `SudokuModel`
 
-Coeur du Modele. Maintient :
+Cœur du Modèle. Maintient :
 
-- La grille 9x9 (`m_grid[9][9]`) avec les valeurs entrees.
-- Les marqueurs de cellules fixes (`m_fixed[9][9]`) pour proteger les valeurs initiales.
-- Les ensembles de candidats (`m_candidates[9][9]`) calcules dynamiquement.
-- L'etat des indices (`m_hintsEnabled`) controlant l'exposition des candidats a la Vue.
+- La grille 9x9 (`m_grid[9][9]`) avec les valeurs entrées.
+- Les marqueurs de cellules fixes (`m_fixed[9][9]`) pour protéger les valeurs initiales.
+- Les ensembles de candidats (`m_candidates[9][9]`) calculés dynamiquement.
+- L'état des indices (`m_hintsEnabled`) contrôlant l'exposition des candidats à la Vue.
 
-Methodes publiques principales :
+Méthodes publiques principales :
 
-| Methode | Role |
+| Méthode | Rôle |
 |---|---|
 | `getValue(row, col)` | Retourne la valeur d'une cellule |
-| `setValue(row, col, value)` | Ecrit une valeur, declenche le recalcul et emets les signaux |
-| `isFixed(row, col)` | Verifie si la cellule est une valeur initiale |
+| `setValue(row, col, value)` | Écrit une valeur, déclenche le recalcul et émet les signaux |
+| `isFixed(row, col)` | Vérifie si la cellule est une valeur initiale |
 | `getCandidates(row, col)` | Retourne l'ensemble des candidats pour une cellule |
-| `updateAllCandidates()` | Recalcule tous les candidats et emet les signaux de notification |
+| `updateAllCandidates()` | Recalcule tous les candidats et émet les signaux de notification |
 | `loadGrid(grid[9][9])` | Charge une grille, marque les cellules fixes, recalcule les candidats |
-| `clearGrid()` | Remet la grille a zero |
-| `isSolved()` | Verifie si toutes les cellules sont remplies (condition de victoire) |
-| `setHintsEnabled(bool)` | Active ou desactive l'exposition des indices a la Vue |
-| `hintsEnabled()` | Retourne l'etat courant des indices |
+| `clearGrid()` | Remet la grille à zéro |
+| `isSolved()` | Vérifie si toutes les cellules sont remplies (condition de victoire) |
+| `setHintsEnabled(bool)` | Active ou désactive l'exposition des indices à la Vue |
+| `hintsEnabled()` | Retourne l'état courant des indices |
 
-Signaux emis :
+Signaux émis :
 
-| Signal | Moment d'emission |
+| Signal | Moment d'émission |
 |---|---|
-| `cellChanged(row, col)` | Apres chaque appel a `setValue()` |
-| `candidatesUpdated()` | Apres recalcul complet des candidats |
+| `cellChanged(row, col)` | Après chaque appel à `setValue()` |
+| `candidatesUpdated()` | Après recalcul complet des candidats |
 | `contradictionDetected(row, col)` | Pour chaque cellule en conflit ou vide sans candidat |
-| `gridSolved()` | Quand `isSolved()` retourne vrai apres une saisie |
+| `gridSolved()` | Quand `isSolved()` retourne vrai après une saisie |
 
 #### `SudokuSolver`
 
-Implemente un algorithme de resolution par backtracking avec validation. Utilise en interne pour verifier la coherence des grilles chargees.
+Implémente un algorithme de résolution par backtracking avec validation. Utilisé en interne pour vérifier la cohérence des grilles chargées.
 
 ### Vue (`src/View/`)
 
-Ensemble de widgets Qt independants qui affichent l'etat du Modele et transmettent les interactions utilisateur vers le Controleur.
+Ensemble de widgets Qt indépendants qui affichent l'état du Modèle et transmettent les interactions utilisateur vers le Contrôleur.
 
 #### `MainWindow`
 
-Fenetre principale (`QMainWindow`). Responsabilites :
+Fenêtre principale (`QMainWindow`). Responsabilités :
 
-- Orchestration de la mise en page : barre de difficulte, grille, barre de controle, pave numerique.
-- Construction des menus (Fichier, Edition, Aide) avec leurs actions, raccourcis et infobulles.
-- Gestion du chronometre (`QTimer`) : demarrage, arret, pause, affichage MM:SS.
+- Orchestration de la mise en page : barre de difficulté, grille, barre de contrôle, pavé numérique.
+- Construction des menus (Fichier, Édition, Aide) avec leurs actions, raccourcis et infobulles.
+- Gestion du chronomètre (`QTimer`) : démarrage, arrêt, pause, affichage MM:SS.
 - Slots de haut niveau : `onNewGrid()`, `onLoadGrid()`, `onDifficultySelected()`, `onUndo()`, `onRedo()`, `onToggleHints()`, `onPauseClicked()`, `onShowHelp()`, `onGridSolved()`, `onLanguageChanged()`.
-- `retranslateUi()` : met a jour en une seule passe tous les textes traduisibles des widgets membres lors d'un changement de langue.
-- Stocke comme membres tous les pointeurs vers les widgets et actions traduisibles pour pouvoir les mettre a jour sans reconstruire l'interface.
+- `retranslateUi()` : met à jour en une seule passe tous les textes traduisibles des widgets membres lors d'un changement de langue.
+- Stocke comme membres tous les pointeurs vers les widgets et actions traduisibles pour pouvoir les mettre à jour sans reconstruire l'interface.
 
 Membres principaux de l'interface :
 
-| Membre | Type | Role |
+| Membre | Type | Rôle |
 |---|---|---|
 | `m_gridView` | `SudokuGridView*` | La grille de jeu |
-| `m_controller` | `SudokuController*` | Le controleur |
-| `m_numPad` | `NumPad*` | Le pave numerique |
-| `m_difficultyBar` | `QWidget*` | Barre de selection de difficulte |
-| `m_difficultyButtons` | `QList<QPushButton*>` | Les 4 boutons de difficulte (pour retranslation) |
-| `m_timerBar` | `QWidget*` | Barre du chronometre et des controles |
+| `m_controller` | `SudokuController*` | Le contrôleur |
+| `m_numPad` | `NumPad*` | Le pavé numérique |
+| `m_difficultyBar` | `QWidget*` | Barre de sélection de difficulté |
+| `m_difficultyButtons` | `QList<QPushButton*>` | Les 4 boutons de difficulté (pour retranslation) |
+| `m_timerBar` | `QWidget*` | Barre du chronomètre et des contrôles |
 | `m_timerLabel` | `QLabel*` | Affichage MM:SS |
 | `m_pauseBtn` | `QPushButton*` | Bouton pause/reprise (⏸/▶) |
-| `m_restartBtn` | `QPushButton*` | Bouton redemarrage (↺) |
+| `m_restartBtn` | `QPushButton*` | Bouton redémarrage (↺) |
 | `m_hintsBtn` | `QPushButton*` | Bouton indices (H), checkable |
 | `m_helpBtn` | `QPushButton*` | Bouton aide (?) |
 | `m_langBtn` | `QPushButton*` | Bouton langue (FR/EN) |
 | `m_timer` | `QTimer*` | Timer 1 seconde |
-| `m_seconds` | `int` | Secondes ecoulees depuis le debut |
-| `m_paused` | `bool` | Etat de pause |
+| `m_seconds` | `int` | Secondes écoulées depuis le début |
+| `m_paused` | `bool` | État de pause |
 | `m_currentLang` | `QString` | Code langue actif ("fr" ou "en") |
 | `m_fileMenu` | `QMenu*` | Menu Fichier |
-| `m_editMenu` | `QMenu*` | Menu Edition |
+| `m_editMenu` | `QMenu*` | Menu Édition |
 | `m_helpMenu` | `QMenu*` | Menu Aide |
 | `m_langMenu` | `QMenu*` | Sous-menu Langue |
 | `m_newAction` | `QAction*` | Nouvelle grille |
 | `m_loadAction` | `QAction*` | Ouvrir grille |
 | `m_quitAction` | `QAction*` | Quitter (avec `NoRole` pour macOS) |
 | `m_undoAction` | `QAction*` | Annuler |
-| `m_redoAction` | `QAction*` | Retablir |
-| `m_hintsAction` | `QAction*` | Activer/desactiver les indices, checkable |
+| `m_redoAction` | `QAction*` | Rétablir |
+| `m_hintsAction` | `QAction*` | Activer/désactiver les indices, checkable |
 | `m_helpAction` | `QAction*` | Guide du joueur |
 
 #### `SudokuGridView`
 
-Widget affichant la grille 9x9. Responsabilites :
+Widget affichant la grille 9x9. Responsabilités :
 
-- Creation et mise en page des 81 instances de `CellWidget` dans un `QGridLayout`.
-- Gestion de la selection courante (`m_selectedRow`, `m_selectedCol`).
-- Surlignage de la ligne, colonne et bloc 3x3 de la cellule selectionnee.
-- Traitement des evenements clavier : touches directionnelles, chiffres 1-9, Suppr, Echap, Espace.
-- Overlay de pause : un `QLabel` semi-transparent couvre toute la grille quand le jeu est en pause, avec l'icone de pause coloree en `#7A9AB5`.
-- `refreshCell(row, col)` : met a jour un `CellWidget` a partir du Modele ; passe un `QSet<int>` vide si `m_model->hintsEnabled()` est faux, masquant ainsi les indices sans modifier les donnees du Modele.
-- `resetView()` : reinitialise tous les etats visuels (contradictions, surlignage, selection, overlay) lors du chargement d'une nouvelle grille.
+- Création et mise en page des 81 instances de `CellWidget` dans un `QGridLayout`.
+- Gestion de la sélection courante (`m_selectedRow`, `m_selectedCol`).
+- Surlignage de la ligne, colonne et bloc 3x3 de la cellule sélectionnée.
+- Traitement des événements clavier : touches directionnelles, chiffres 1-9, Suppr, Échap, Espace.
+- Overlay de pause : un `QLabel` semi-transparent couvre toute la grille quand le jeu est en pause, avec l'icône de pause colorée en `#7A9AB5`.
+- `refreshCell(row, col)` : met à jour un `CellWidget` à partir du Modèle ; passe un `QSet<int>` vide si `m_model->hintsEnabled()` est faux, masquant ainsi les indices sans modifier les données du Modèle.
+- `resetView()` : réinitialise tous les états visuels (contradictions, surlignage, sélection, overlay) lors du chargement d'une nouvelle grille.
 
-Signaux emis :
+Signaux émis :
 
-| Signal | Moment d'emission |
+| Signal | Moment d'émission |
 |---|---|
-| `cellSelected(row, col)` | Quand l'utilisateur selectionne une cellule |
-| `valueChanged(row, col, value)` | Quand une valeur est saisie ou effacee |
-| `pauseToggled()` | Quand la touche Espace est pressee |
+| `cellSelected(row, col)` | Quand l'utilisateur sélectionne une cellule |
+| `valueChanged(row, col, value)` | Quand une valeur est saisie ou effacée |
+| `pauseToggled()` | Quand la touche Espace est pressée |
 
 #### `CellWidget`
 
-Represente une cellule individuelle (55x55 pixels). Responsabilites :
+Représente une cellule individuelle (55x55 pixels). Responsabilités :
 
-- Affichage de la valeur numerique via un `QLabel` principal.
-- Affichage des pencil marks via un sous-widget `m_pencilWidget` contenant une grille 3x3 de `QLabel` (digits 1-9), visible uniquement quand la cellule est vide, selectionnee, et non fixe.
-- Application du style visuel selon les etats prioritaires (via `updateStyle()`) :
+- Affichage de la valeur numérique via un `QLabel` principal.
+- Affichage des pencil marks via un sous-widget `m_pencilWidget` contenant une grille 3x3 de `QLabel` (digits 1-9), visible uniquement quand la cellule est vide, sélectionnée, et non fixe.
+- Application du style visuel selon les états prioritaires (via `updateStyle()`) :
 
-| Etat | Couleur de fond | Couleur du texte |
+| État | Couleur de fond | Couleur du texte |
 |---|---|---|
-| Selectionne | `#B8D4ED` | `#1A2A3A` |
+| Sélectionné | `#B8D4ED` | `#1A2A3A` |
 | Contradiction | `#FADBD8` | `#C0392B` |
 | Naked single | `#D5F5E3` | `#1E8449` |
-| Surligne | `#FEF9E7` | `#2C3E50` (fixe) / `#5B8CCC` (joueur) |
+| Surligné | `#FEF9E7` | `#2C3E50` (fixe) / `#5B8CCC` (joueur) |
 | Fixe | `#EAF0F6` | `#2C3E50` |
 | Vide (joueur) | `#FFFFFF` | `#5B8CCC` |
 
-- Bordures epaissies (3px) aux frontieres des blocs 3x3, bordures fines (1px) a l'interieur.
-- `mousePressEvent` : emet `cellClicked(row, col)` uniquement si la cellule n'est pas fixe.
+- Bordures épaissies (3px) aux frontières des blocs 3x3, bordures fines (1px) à l'intérieur.
+- `mousePressEvent` : émet `cellClicked(row, col)` uniquement si la cellule n'est pas fixe.
 
 #### `NumPad`
 
-Pave numerique virtuel. Contient 9 boutons chiffres (1-9) et un bouton d'effacement (X). Chaque bouton emet `numberClicked(int)` a la pression. Les boutons 1-9 affichent le meme style que les cellules joueur, avec une taille fixe et des coins arrondis.
+Pavé numérique virtuel. Contient 9 boutons chiffres (1-9) et un bouton d'effacement (X). Chaque bouton émet `numberClicked(int)` à la pression. Les boutons 1-9 affichent le même style que les cellules joueur, avec une taille fixe et des coins arrondis.
 
 #### `HelpDialog`
 
 Dialogue d'aide modal (`QDialog`). Contient :
 
 - Un titre "Guide du joueur".
-- Une section "Signification des couleurs" avec 6 echantillons visuels (carres colores) et leur description.
-- Une section "Raccourcis clavier" avec un tableau de deux colonnes (touche, action) listant l'integralite des raccourcis disponibles.
+- Une section "Signification des couleurs" avec 6 échantillons visuels (carrés colorés) et leur description.
+- Une section "Raccourcis clavier" avec un tableau de deux colonnes (touche, action) listant l'intégralité des raccourcis disponibles.
 - Un bouton Fermer.
-- Toutes les chaines sont traduisibles via `tr()`.
+- Toutes les chaînes sont traduisibles via `tr()`.
 
 #### `VictoryDialog`
 
-Dialogue de victoire modal (`QDialog`). S'affiche quand la grille est resolue. Contient :
+Dialogue de victoire modal (`QDialog`). S'affiche quand la grille est résolue. Contient :
 
-- Titre "Felicitations !".
-- Message "Vous avez resolu la grille !".
-- Temps ecoule formate en MM:SS.
-- Bouton "Nouvelle partie" : emet le signal `newGameRequested()`.
+- Titre "Félicitations !".
+- Message "Vous avez résolu la grille !".
+- Temps écoulé formaté en MM:SS.
+- Bouton "Nouvelle partie" : émet le signal `newGameRequested()`.
 - Bouton "Fermer" : appelle `accept()`.
 
-La connexion dans `MainWindow::onGridSolved()` utilise `Qt::QueuedConnection` pour le slot `onNewGrid()`, afin d'eviter un crash lie a la destruction du dialogue pendant l'execution de son propre slot.
+La connexion dans `MainWindow::onGridSolved()` utilise `Qt::QueuedConnection` pour le slot `onNewGrid()`, afin d'éviter un crash lié à la destruction du dialogue pendant l'exécution de son propre slot.
 
-### Controleur (`src/Controller/`)
+### Contrôleur (`src/Controller/`)
 
 #### `SudokuController`
 
-Intermediaire entre la Vue et le Modele. Responsabilites :
+Intermédiaire entre la Vue et le Modèle. Responsabilités :
 
-- Chargement des grilles (`loadDefaultGrid`, `loadRandomGrid`, `loadGridFromFile`). Le chargement aleatoire lit le nombre de grilles en premiere ligne du fichier, tire un index au hasard avec `QRandomGenerator`, et parse la ligne de 81 caracteres correspondante.
-- Ecriture des valeurs (`setCellValue`) avec empilement de l'etat precedent dans la pile d'annulation.
-- Gestion de l'historique d'annulation/retablissement via deux `QStack<CellState>`. Chaque `CellState` est un `QPair<QPair<int,int>, int>` encodant la position et l'ancienne valeur.
-- Delegation du toggle des indices au Modele (`toggleHints`) et declenchement d'un recalcul complet des candidats pour forcer le rafraichissement de la Vue.
+- Chargement des grilles (`loadDefaultGrid`, `loadRandomGrid`, `loadGridFromFile`). Le chargement aléatoire lit le nombre de grilles en première ligne du fichier, tire un index au hasard avec `QRandomGenerator`, et parse la ligne de 81 caractères correspondante.
+- Écriture des valeurs (`setCellValue`) avec empilement de l'état précédent dans la pile d'annulation.
+- Gestion de l'historique d'annulation/rétablissement via deux `QStack<CellState>`. Chaque `CellState` est un `QPair<QPair<int,int>, int>` encodant la position et l'ancienne valeur.
+- Délégation du toggle des indices au Modèle (`toggleHints`) et déclenchement d'un recalcul complet des candidats pour forcer le rafraîchissement de la Vue.
 
 ---
 
 ## Connexions signaux/slots
 
-Tableau complet des connexions etablies dans `MainWindow` :
+Tableau complet des connexions établies dans `MainWindow` :
 
-| Emetteur | Signal | Recepteur | Slot / Lambda |
+| Émetteur | Signal | Récepteur | Slot / Lambda |
 |---|---|---|---|
 | `SudokuGridView` | `valueChanged(row, col, val)` | `SudokuController` | `setCellValue(row, col, val)` |
 | `SudokuGridView` | `pauseToggled()` | `MainWindow` | `onPauseClicked()` |
@@ -273,30 +273,30 @@ Tableau complet des connexions etablies dans `MainWindow` :
 
 ## Internationalisation
 
-Le systeme de traduction repose sur le pipeline standard de Qt :
+Le système de traduction repose sur le pipeline standard de Qt :
 
-1. Les chaines traduisibles sont marquees avec `tr()` dans le code source.
-2. `lupdate sudoku-assistant.pro` extrait les nouvelles chaines et met a jour les fichiers `.ts` (`sudoku_fr.ts`, `sudoku_en.ts`) sans ecraser les traductions existantes.
+1. Les chaînes traduisibles sont marquées avec `tr()` dans le code source.
+2. `lupdate sudoku-assistant.pro` extrait les nouvelles chaînes et met à jour les fichiers `.ts` (`sudoku_fr.ts`, `sudoku_en.ts`) sans écraser les traductions existantes.
 3. Les traductions sont saisies dans les fichiers `.ts` (XML) directement ou via Qt Linguist.
-4. `lrelease sudoku-assistant.pro` compile les `.ts` en fichiers binaires `.qm` embarques dans `resources.qrc`.
-5. Au demarrage, `main.cpp` charge le fichier `.qm` correspondant a la locale systeme via un `QTranslator` statique.
-6. A chaque changement de langue, `onLanguageChanged(lang)` :
-   - Met a jour `m_currentLang`.
+4. `lrelease sudoku-assistant.pro` compile les `.ts` en fichiers binaires `.qm` embarqués dans `resources.qrc`.
+5. Au démarrage, `main.cpp` charge le fichier `.qm` correspondant à la locale système via un `QTranslator` statique.
+6. À chaque changement de langue, `onLanguageChanged(lang)` :
+   - Met à jour `m_currentLang`.
    - Supprime l'ancien traducteur et installe le nouveau via `QCoreApplication::installTranslator()`.
-   - Appelle `retranslateUi()` qui met a jour en une passe tous les textes des widgets membres.
+   - Appelle `retranslateUi()` qui met à jour en une passe tous les textes des widgets membres.
 
-Cette approche evite tout redemarrage de l'application et preserve l'etat courant du jeu (grille, chronometre, score).
+Cette approche évite tout redémarrage de l'application et préserve l'état courant du jeu (grille, chronomètre, score).
 
 ---
 
-## Systeme d'indices (hints)
+## Système d'indices (hints)
 
-Le systeme d'indices couvre deux aides visuelles : les pencil marks et le surlignage des naked singles. Il est pilote par le flag `m_hintsEnabled` du `SudokuModel`.
+Le système d'indices couvre deux aides visuelles : les pencil marks et le surlignage des naked singles. Il est piloté par le flag `m_hintsEnabled` du `SudokuModel`.
 
-- **Activation/desactivation** : `SudokuController::toggleHints()` inverse le flag via `m_model->setHintsEnabled()` puis appelle `m_model->updateAllCandidates()` pour forcer un rafraichissement complet de la Vue.
-- **Dans la Vue** : `SudokuGridView::refreshCell()` consulte `m_model->hintsEnabled()`. Si les indices sont desactives, il passe un `QSet<int>` vide a `CellWidget::setCandidates()`, ce qui a deux effets : `m_nakedSingle` est mis a `false` (plus de surlignage vert) et les pencil marks ne sont pas affiches.
-- **Les contradictions** restent actives independamment du flag d'indices, car elles dependent uniquement du signal `contradictionDetected` emis par le Modele.
-- **Synchronisation UI** : `onToggleHints()` lit `m_controller->model()->hintsEnabled()` apres le toggle pour synchroniser l'etat coche du bouton `m_hintsBtn` et de l'action `m_hintsAction` de facon canonique.
+- **Activation/désactivation** : `SudokuController::toggleHints()` inverse le flag via `m_model->setHintsEnabled()` puis appelle `m_model->updateAllCandidates()` pour forcer un rafraîchissement complet de la Vue.
+- **Dans la Vue** : `SudokuGridView::refreshCell()` consulte `m_model->hintsEnabled()`. Si les indices sont désactivés, il passe un `QSet<int>` vide à `CellWidget::setCandidates()`, ce qui a deux effets : `m_nakedSingle` est mis à `false` (plus de surlignage vert) et les pencil marks ne sont pas affichés.
+- **Les contradictions** restent actives indépendamment du flag d'indices, car elles dépendent uniquement du signal `contradictionDetected` émis par le Modèle.
+- **Synchronisation UI** : `onToggleHints()` lit `m_controller->model()->hintsEnabled()` après le toggle pour synchroniser l'état coché du bouton `m_hintsBtn` et de l'action `m_hintsAction` de façon canonique.
 
 ---
 
@@ -305,17 +305,17 @@ Le systeme d'indices couvre deux aides visuelles : les pencil marks et le surlig
 ```
 sudoku-assistant-qt/
 ├── src/
-│   ├── main.cpp                        Point d'entree, chargement police et traducteur
+│   ├── main.cpp                        Point d'entrée, chargement police et traducteur
 │   ├── Model/
 │   │   ├── SudokuModel.h / .cpp        Grille, candidats, hints, signaux
-│   │   ├── SudokuSolver.h / .cpp       Algorithme de resolution par backtracking
+│   │   ├── SudokuSolver.h / .cpp       Algorithme de résolution par backtracking
 │   ├── View/
-│   │   ├── MainWindow.h / .cpp         Fenetre principale, menus, chrono, retranslateUi
-│   │   ├── SudokuGridView.h / .cpp     Grille 9x9, selection, surlignage, pause overlay
+│   │   ├── MainWindow.h / .cpp         Fenêtre principale, menus, chrono, retranslateUi
+│   │   ├── SudokuGridView.h / .cpp     Grille 9x9, sélection, surlignage, pause overlay
 │   │   ├── CellWidget.h / .cpp         Cellule individuelle, pencil marks, styles
-│   │   ├── NumPad.h / .cpp             Pave numerique virtuel
-│   │   ├── HelpDialog.h / .cpp         Guide du joueur, legende, raccourcis
-│   │   └── VictoryDialog.h / .cpp      Dialogue de victoire avec temps ecoule
+│   │   ├── NumPad.h / .cpp             Pavé numérique virtuel
+│   │   ├── HelpDialog.h / .cpp         Guide du joueur, légende, raccourcis
+│   │   └── VictoryDialog.h / .cpp      Dialogue de victoire avec temps écoulé
 │   └── Controller/
 │       ├── SudokuController.h / .cpp   Chargement, saisie, undo/redo, hints
 ├── resources/
@@ -323,43 +323,43 @@ sudoku-assistant-qt/
 │   │   ├── Easy.txt                    Grilles faciles (format 81 chars)
 │   │   ├── Medium.txt                  Grilles moyennes
 │   │   ├── Hard.txt                    Grilles difficiles
-│   │   └── Insane.txt                  Grilles extremes
+│   │   └── Insane.txt                  Grilles extrêmes
 │   ├── fonts/
 │   │   ├── Nunito/                     Police Nunito (variable + static)
 │   │   └── Oswald/                     Police Oswald (variable + static)
 │   ├── i18n/
-│   │   ├── sudoku_fr.ts / .qm          Traductions francaises
+│   │   ├── sudoku_fr.ts / .qm          Traductions françaises
 │   │   └── sudoku_en.ts / .qm          Traductions anglaises
 │   ├── images/
-│   │   └── pause.png                   Icone de pause (overlay)
-│   └── resources.qrc                   Manifeste des ressources embarquees
+│   │   └── pause.png                   Icône de pause (overlay)
+│   └── resources.qrc                   Manifeste des ressources embarquées
 ├── sudoku-assistant.pro                Fichier de projet qmake
 └── README.md
 ```
 
 ---
 
-## Prerequis
+## Prérequis
 
 | Outil | Version minimale |
 |---|---|
 | Qt | 6.0 |
 | Compilateur C++ | C++17 (GCC, Clang ou MSVC) |
 | qmake | Fourni avec Qt6 |
-| make | GNU Make ou equivalent |
+| make | GNU Make ou équivalent |
 
-Qt6 doit etre installe et le repertoire `bin` de Qt doit etre accessible dans le `PATH` systeme.
+Qt6 doit être installé et le répertoire `bin` de Qt doit être accessible dans le `PATH` système.
 
 ---
 
-## Compilation et execution
+## Compilation et exécution
 
 ```bash
-# Cloner le depot
+# Cloner le dépôt
 git clone <url-du-depot>
 cd sudoku-assistant-qt
 
-# Generer le Makefile
+# Générer le Makefile
 qmake sudoku-assistant.pro
 
 # Compiler
@@ -369,11 +369,11 @@ make -j$(nproc)
 ./build/sudoku-assistant
 ```
 
-Pour recompiler les fichiers de traduction apres modification des sources :
+Pour recompiler les fichiers de traduction après modification des sources :
 
 ```bash
-lupdate sudoku-assistant.pro   # Extrait les chaines traduisibles vers les .ts
-# Editer les .ts avec Qt Linguist ou manuellement
+lupdate sudoku-assistant.pro   # Extrait les chaînes traduisibles vers les .ts
+# Éditer les .ts avec Qt Linguist ou manuellement
 lrelease sudoku-assistant.pro  # Compile les .ts en fichiers binaires .qm
 ```
 
@@ -381,13 +381,13 @@ lrelease sudoku-assistant.pro  # Compile les .ts en fichiers binaires .qm
 
 ## Format des fichiers de grilles
 
-Les grilles sont stockees dans des fichiers `.txt` selon le format suivant :
+Les grilles sont stockées dans des fichiers `.txt` selon le format suivant :
 
-- La premiere ligne contient un entier indiquant le nombre de grilles dans le fichier.
-- Chaque ligne suivante represente une grille complete sous forme d'une chaine de 81 caracteres.
-- Les chiffres `1` a `9` correspondent aux cellules preremplies (cellules fixes).
-- Le caractere `0` correspond a une cellule vide a completer par le joueur.
-- Les cellules sont lues de gauche a droite, ligne par ligne, de la rangee 1 a la rangee 9.
+- La première ligne contient un entier indiquant le nombre de grilles dans le fichier.
+- Chaque ligne suivante représente une grille complète sous forme d'une chaîne de 81 caractères.
+- Les chiffres `1` à `9` correspondent aux cellules préremplies (cellules fixes).
+- Le caractère `0` correspond à une cellule vide à compléter par le joueur.
+- Les cellules sont lues de gauche à droite, ligne par ligne, de la rangée 1 à la rangée 9.
 
 Exemple pour un fichier contenant deux grilles :
 
@@ -403,36 +403,36 @@ Exemple pour un fichier contenant deux grilles :
 
 | Touche | Action |
 |---|---|
-| Fleches directionnelles | Naviguer entre les cellules |
-| 1 -- 9 | Saisir un chiffre dans la cellule selectionnee |
-| Suppr / Retour arriere | Effacer la cellule selectionnee |
-| Echap | Deselectionner la cellule active |
+| Flèches directionnelles | Naviguer entre les cellules |
+| 1 -- 9 | Saisir un chiffre dans la cellule sélectionnée |
+| Suppr / Retour arrière | Effacer la cellule sélectionnée |
+| Échap | Désélectionner la cellule active |
 | Espace | Mettre le jeu en pause / reprendre |
-| Ctrl+Z | Annuler la derniere action |
-| Ctrl+Y | Retablir la derniere action annulee |
+| Ctrl+Z | Annuler la dernière action |
+| Ctrl+Y | Rétablir la dernière action annulée |
 | Ctrl+N | Charger une nouvelle grille |
 | Ctrl+O | Ouvrir une grille depuis un fichier |
 | Ctrl+Q / Cmd+Q | Quitter l'application |
 | F1 | Ouvrir le guide du joueur |
-| Ctrl+H | Activer / desactiver les indices |
+| Ctrl+H | Activer / désactiver les indices |
 
 ---
 
-## Legende des couleurs
+## Légende des couleurs
 
-| Couleur | Etat de la cellule |
+| Couleur | État de la cellule |
 |---|---|
-| Bleu clair (`#EAF0F6`) | Cellule fixe -- chiffre donne par la grille, non modifiable |
-| Blanc (`#FFFFFF`) | Cellule vide -- a remplir par le joueur |
-| Bleu moyen (`#B8D4ED`) | Cellule selectionnee -- cellule active |
-| Jaune pale (`#FEF9E7`) | Cellule surlignee -- meme ligne, colonne ou bloc que la selection |
-| Rouge pale (`#FADBD8`) | Contradiction -- chiffre en conflit avec les regles du Sudoku |
-| Vert pale (`#D5F5E3`) | Naked single -- une seule valeur possible dans cette cellule |
+| Bleu clair (`#EAF0F6`) | Cellule fixe -- chiffre donné par la grille, non modifiable |
+| Blanc (`#FFFFFF`) | Cellule vide -- à remplir par le joueur |
+| Bleu moyen (`#B8D4ED`) | Cellule sélectionnée -- cellule active |
+| Jaune pâle (`#FEF9E7`) | Cellule surlignée -- même ligne, colonne ou bloc que la sélection |
+| Rouge pâle (`#FADBD8`) | Contradiction -- chiffre en conflit avec les règles du Sudoku |
+| Vert pâle (`#D5F5E3`) | Naked single -- une seule valeur possible dans cette cellule |
 
 ---
 
-## Contexte academique
+## Contexte académique
 
-Ce projet a ete realise dans le cadre d'un cours de genie logiciel et d'interfaces graphiques en deuxieme annee a l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientee objet (MVP, Observateur), la programmation en C++17, et le developpement d'interfaces graphiques avec le framework Qt6.
+Ce projet a été réalisé dans le cadre d'un cours de génie logiciel et d'interfaces graphiques en deuxième année à l'ENSI-CAEN. Il a pour objectif de mettre en pratique les patrons de conception orientée objet (MVP, Observateur), la programmation en C++17, et le développement d'interfaces graphiques avec le framework Qt6.
 
 - **Auteur** : Anas Kartaoui

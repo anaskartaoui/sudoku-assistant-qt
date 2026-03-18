@@ -343,55 +343,6 @@ sudoku-assistant-qt/
 
 ---
 
-## Compilation et exécution
-
-```bash
-# Cloner le dépôt
-git clone <url-du-depot>
-cd sudoku-assistant-qt
-
-# Générer le Makefile
-qmake sudoku-assistant.pro
-
-# Compiler (Linux)
-make -j$(nproc)
-# Compiler (macOS)
-make -j$(sysctl -n hw.ncpu)
-
-# Lancer l'application
-./build/sudoku-assistant
-```
-
-Pour recompiler les fichiers de traduction après modification des sources :
-
-```bash
-lupdate sudoku-assistant.pro   # Extrait les chaînes traduisibles vers les .ts
-# Éditer les .ts avec Qt Linguist ou manuellement
-lrelease sudoku-assistant.pro  # Compile les .ts en fichiers binaires .qm
-```
-
----
-
-## Format des fichiers de grilles
-
-Les grilles sont stockées dans des fichiers `.txt` selon le format suivant :
-
-- La première ligne contient un entier indiquant le nombre de grilles dans le fichier.
-- Chaque ligne suivante représente une grille complète sous forme d'une chaîne de 81 caractères.
-- Les chiffres `1` à `9` correspondent aux cellules préremplies (cellules fixes).
-- Le caractère `0` correspond à une cellule vide à compléter par le joueur.
-- Les cellules sont lues de gauche à droite, ligne par ligne, de la rangée 1 à la rangée 9.
-
-Exemple pour un fichier contenant deux grilles :
-
-```
-2
-530070000600195000098000060800060003400803001700020006060000280000419005000080079
-800000000003600000070090200060005030004007000090010006002008000500090073000000981
-```
-
----
-
 ## Raccourcis clavier
 
 | Touche | Action |
@@ -408,19 +359,6 @@ Exemple pour un fichier contenant deux grilles :
 | Ctrl+Q / Cmd+Q | Quitter l'application |
 | F1 | Ouvrir le guide du joueur |
 | Ctrl+H | Activer / désactiver les indices |
-
----
-
-## Légende des couleurs
-
-| Couleur | État de la cellule |
-|---|---|
-| Bleu clair (`#EAF0F6`) | Cellule fixe -- chiffre donné par la grille, non modifiable |
-| Blanc (`#FFFFFF`) | Cellule vide -- à remplir par le joueur |
-| Bleu moyen (`#B8D4ED`) | Cellule sélectionnée -- cellule active |
-| Jaune pâle (`#FEF9E7`) | Cellule surlignée -- même ligne, colonne ou bloc que la sélection |
-| Rouge pâle (`#FADBD8`) | Contradiction -- chiffre en conflit avec les règles du Sudoku |
-| Vert pâle (`#D5F5E3`) | Naked single -- une seule valeur possible dans cette cellule |
 
 ---
 

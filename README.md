@@ -304,6 +304,25 @@ Le système d'indices couvre deux aides visuelles : les pencil marks et le surli
 
 ---
 
+## Raccourcis clavier
+
+| Touche | Action |
+|---|---|
+| Flèches directionnelles | Naviguer entre les cellules |
+| 1 -- 9 | Saisir un chiffre dans la cellule sélectionnée |
+| Suppr / Retour arrière | Effacer la cellule sélectionnée |
+| Échap | Désélectionner la cellule active |
+| Espace | Mettre le jeu en pause / reprendre |
+| Ctrl+Z | Annuler la dernière action |
+| Ctrl+Y | Rétablir la dernière action annulée |
+| Ctrl+N | Charger une nouvelle grille |
+| Ctrl+O | Ouvrir une grille depuis un fichier |
+| Ctrl+Q / Cmd+Q | Quitter l'application |
+| F1 | Ouvrir le guide du joueur |
+| Ctrl+H | Activer / désactiver les indices |
+
+---
+
 ## Structure du projet
 
 ```
@@ -340,25 +359,6 @@ sudoku-assistant-qt/
 ├── sudoku-assistant.pro                Fichier de projet qmake
 └── README.md
 ```
-
----
-
-## Raccourcis clavier
-
-| Touche | Action |
-|---|---|
-| Flèches directionnelles | Naviguer entre les cellules |
-| 1 -- 9 | Saisir un chiffre dans la cellule sélectionnée |
-| Suppr / Retour arrière | Effacer la cellule sélectionnée |
-| Échap | Désélectionner la cellule active |
-| Espace | Mettre le jeu en pause / reprendre |
-| Ctrl+Z | Annuler la dernière action |
-| Ctrl+Y | Rétablir la dernière action annulée |
-| Ctrl+N | Charger une nouvelle grille |
-| Ctrl+O | Ouvrir une grille depuis un fichier |
-| Ctrl+Q / Cmd+Q | Quitter l'application |
-| F1 | Ouvrir le guide du joueur |
-| Ctrl+H | Activer / désactiver les indices |
 
 ---
 
